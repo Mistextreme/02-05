@@ -1,0 +1,98 @@
+if Config.Locale ~= 'es' then return end
+
+Config.Locales = Config.Locales or {}
+Config.Locales['es'] = {
+    -- Textos 3D (3D Metin)
+    take_pump           = '[E] Coger manguera',
+    return_pump         = '[G] Devolver manguera',
+    open_menu           = '[E] Abrir menú',
+    remove_pump         = '[G] Quitar manguera',
+    attach_pump         = '[E] Conectar al vehículo',
+    buy_station_text    = '[E] Comprar estación',
+    manage_station_text = '[E] Gestionar estación',
+
+    -- Notificaciones (Bildirimler)
+    no_money            = "¡No tienes suficiente dinero!",
+    refuel_success      = "Vehículo repostado con éxito.",
+    station_bought      = "¡Has comprado la estación!",
+    station_sold        = "Has vendido la estación.",
+    already_owned       = "Esta estación ya tiene dueño.",
+    not_owner           = "No eres el dueño de esta estación.",
+    price_updated       = "Precios del combustible actualizados.",
+    low_fuel            = "Aviso: ¡Nivel de combustible crítico!",
+    engine_stopped      = "Motor parado: ¡sin combustible!",
+    stock_added         = "Existencias añadidas a la estación.",
+    stock_low           = "Aviso: ¡Las existencias de la estación se agotan!",
+    stock_empty         = "¡La estación no tiene existencias!",
+    cash_withdrawn      = "Dinero retirado de la caja de la estación.",
+    cash_deposited      = "Dinero depositado en la caja de la estación.",
+
+    -- UI de Estación (İstasyon UI)
+    station_name        = "Nombre de la estación",
+    station_owner       = "Dueño",
+    station_noowner     = "En venta",
+    station_buy         = "Comprar estación",
+    station_sell        = "Vender estación",
+    station_manage      = "Gestionar estación",
+    station_income      = "Ingresos totales",
+    station_setprice    = "Ajustar precios",
+    station_safe        = "Caja de la estación",
+    station_stock       = "Existencias de combustible",
+    station_buy_stock   = "Comprar existencias",
+    station_withdraw    = "Retirar dinero",
+    station_deposit     = "Ingresar dinero",
+    station_safe_balance= "Saldo de la caja",
+    station_stock_level = "Nivel de existencias",
+    liters              = "litro",
+
+    -- Modal de Compra (Satın Alma Modalı)
+    buy_modal_title     = "Comprar estación",
+    buy_modal_desc      = "¿Quieres comprar esta estación?",
+    buy_modal_price     = "Precio de la estación",
+    buy_modal_confirm   = "Comprar",
+    buy_modal_cancel    = "Cancelar",
+
+    -- UI de Combustible (Yakıt UI)
+    ui_title            = "TIPOS DE COMBUSTIBLE",
+    ui_amount           = "CANTIDAD DE LLENADO",
+    ui_cost             = "COSTE ESTIMADO",
+    type_economic       = "ECONÓMICO",
+    type_normal         = "NORMAL",
+    type_super          = "SÚPER",
+    type_electric       = "ELÉCTRICO",
+    pay_cash            = "EFECTIVO",
+    pay_bank            = "BANCO",
+    info_plate          = "MATRÍCULA",
+    info_fuel           = "NIVEL DE COMBUSTIBLE",
+    info_type           = "TIPO DE COMBUSTIBLE",
+    btn_start           = "EMPEZAR REPOSTAJE",
+    btn_refueling       = "REPOSTANDO...",
+    info_owner          = "DUEÑO",
+    info_price          = "PRECIO / L",
+    liter               = "L",
+    ecoDesc             = "Menos potencia, más autonomía",
+    normalDesc          = "Rendimiento y consumo estándar",
+    superDesc           = "Para vehículos de alto rendimiento",
+    elecDesc            = "Carga para vehículos eléctricos",
+    confirm_title       = "Confirmación requerida",
+    confirm_desc        = "¿Estás seguro de que quieres vender? Esta acción es irreversible.",
+    btn_confirm         = "Confirmar",
+    btn_cancel          = "Cancelar",
+    placeholder_amount  = "Cantidad ($)",
+    placeholder_liters  = "Litros",
+    btn_withdraw        = "Retirar",
+    btn_deposit         = "Ingresar",
+    btn_buy             = "Comprar",
+    btn_save_prices     = "Guardar precios",
+    hint_safe           = "El saldo de la caja se usa automáticamente para las compras.",
+    hint_stock          = "Existencias: {current} / {max} L. El dinero se descuenta de la caja primero.",
+    sell_warning        = "Si vendes la estación, recibirás el 70% del precio y el saldo de la caja. Irreversible.",
+    info_sell_value     = "Valor de reventa: {percent}% de reembolso",
+    info_start_stock    = "Existencias iniciales: {amount} L",
+    info_payments       = "Los pagos de los clientes van directos a la caja",
+}
+
+function T(key)
+    local lang = Config.Locales[Config.Locale] or Config.Locales['es']
+    return lang[key] or key
+end

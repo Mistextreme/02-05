@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shop</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="shop-ui" class="hidden">
+    <div class="shop-container">
+      <div class="shop-header">
+        <h1 id="shop-title">Shop</h1>
+        <button type="button" class="btn-close" id="btn-close" aria-label="Close">&times;</button>
+      </div>
+      <div class="shop-panels">
+        <div class="panel shop-panel">
+          <h2>Shop</h2>
+          <div class="shop-search-wrap">
+            <input type="text" id="shop-search" class="shop-search" placeholder="Search items..." autocomplete="off" />
+          </div>
+          <div class="slots-grid" id="shop-slots"></div>
+        </div>
+        <div class="panel cart-panel">
+          <h2>Your cart</h2>
+          <div class="slots-grid" id="cart-slots"></div>
+          <div class="cart-footer">
+            <div class="cart-total">Total: $<span id="cart-total">0</span></div>
+            <button type="button" class="btn-checkout" id="btn-checkout">Checkout</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="checkout-modal" class="modal hidden">
+    <div class="modal-content">
+      <h3>Pay <span id="checkout-amount">0</span></h3>
+      <div class="payment-options">
+        <button type="button" class="btn-pay" data-method="cash">Pay with Cash</button>
+        <button type="button" class="btn-pay" data-method="bank">Pay with Bank</button>
+      </div>
+      <button type="button" class="btn-cancel" id="checkout-cancel">Cancel</button>
+    </div>
+  </div>
+
+  <div id="quantity-modal" class="modal hidden">
+    <div class="modal-content">
+      <h3>Select quantity</h3>
+      <input
+        type="number"
+        id="quantity-input"
+        min="1"
+        step="1"
+        inputmode="numeric"
+        autocomplete="off"
+      />
+      <div class="payment-options">
+        <button type="button" class="btn-pay" id="quantity-confirm">Add to cart</button>
+        <button type="button" class="btn-cancel" id="quantity-cancel">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

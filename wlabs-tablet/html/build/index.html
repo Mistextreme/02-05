@@ -1,0 +1,2581 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>wlabs-tablet</title>
+  <link rel="stylesheet" href="assets/style-082cb97f.css">
+  <link rel="stylesheet" href="assets/camera-e259bba5.css">
+  <link rel="stylesheet" href="assets/yap-c37bd739.css">
+</head>
+<body>
+  <div id="tablet-root" class="hidden">
+    <div class="forecast-tooltip hidden" id="forecast-tooltip" role="tooltip"></div>
+    <div class="tablet-scale" id="tablet-scale">
+      <div class="tablet-shell">
+        <div class="tablet-camera"></div>
+        <div class="tablet-screen">
+          <div class="boot-screen" id="boot-screen">
+            <img id="boot-logo" class="boot-logo" src="boot-logo.png" alt="boot logo">
+          </div>
+
+          <header class="status-bar">
+            <div class="status-time" id="status-time">09:41</div>
+            <div class="status-right">
+              <span class="status-lte" aria-hidden="true">LTE</span>
+              <span class="status-signal" aria-hidden="true">
+                <svg class="status-signal-icon" viewBox="0 0 22 12" fill="currentColor">
+                  <rect x="1" y="8" width="3" height="4" rx=".8"/>
+                  <rect x="6" y="5" width="3" height="7" rx=".8"/>
+                  <rect x="11" y="2" width="3" height="10" rx=".8"/>
+                  <rect x="16" y="0" width="3" height="12" rx=".8"/>
+                </svg>
+              </span>
+              <span class="status-battery" aria-hidden="true">
+                <svg class="status-battery-icon" viewBox="0 0 28 14" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x=".8" y="2" width="22" height="10" rx="2" fill="none"/>
+                  <rect class="status-battery-fill" x="2.6" y="3.8" width="17" height="6.4" rx="1.2" fill="currentColor"/>
+                  <rect x="23" y="4.2" width="2.5" height="5.6" rx=".6" fill="currentColor"/>
+                </svg>
+              </span>
+            </div>
+            <button id="toggle-panel" class="drop-toggle" aria-label="Quick controls">
+              <span class="drop-toggle-handle"></span>
+            </button>
+          </header>
+
+          <div id="tablet-incoming-call-toast" class="tablet-incoming-call-toast hidden" role="alertdialog" aria-live="assertive" aria-label="Incoming video call">
+            <div class="tablet-incoming-call-toast-inner">
+              <div class="tablet-incoming-call-toast-glow" aria-hidden="true"></div>
+              <div class="tablet-incoming-call-toast-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M7 10.5c0-1.1.9-2 2-2h8.5c.8 0 1.5.7 1.5 1.5v6c0 .8-.7 1.5-1.5 1.5H11l-3.2 2.4c-.5.4-1.2 0-1.2-.6V15" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/><circle cx="9" cy="10" r="1" fill="currentColor"/><circle cx="12.5" cy="10" r="1" fill="currentColor"/><circle cx="16" cy="10" r="1" fill="currentColor"/></svg>
+              </div>
+              <div class="tablet-incoming-call-toast-copy">
+                <span class="tablet-incoming-call-toast-kicker">Incoming video call</span>
+                <strong id="tablet-incoming-call-toast-title" class="tablet-incoming-call-toast-title">Someone</strong>
+                <span id="tablet-incoming-call-toast-sub" class="tablet-incoming-call-toast-sub"></span>
+              </div>
+              <div class="tablet-incoming-call-toast-actions">
+                <button type="button" id="tablet-incoming-call-decline" class="tablet-incoming-call-btn tablet-incoming-call-btn--decline">Decline</button>
+                <button type="button" id="tablet-incoming-call-answer" class="tablet-incoming-call-btn tablet-incoming-call-btn--answer">Answer</button>
+              </div>
+            </div>
+          </div>
+
+          <div id="inline-notification-toast" class="inline-notification-toast hidden" role="status" aria-live="polite" aria-atomic="true">
+            <div id="inline-notification-toast-inner" class="inline-notification-toast-inner">
+              <span id="inline-notification-toast-icon" class="inline-notification-toast-icon">WL</span>
+              <div class="inline-notification-toast-body">
+                <div class="inline-notification-toast-topline">
+                  <strong id="inline-notification-toast-title">Tablet</strong>
+                  <span id="inline-notification-toast-time" class="inline-notification-toast-time">now</span>
+                </div>
+                <span id="inline-notification-toast-app" class="inline-notification-toast-app">Notification</span>
+                <p id="inline-notification-toast-message" class="inline-notification-toast-message"></p>
+              </div>
+              <button type="button" id="inline-notification-toast-dismiss" class="inline-notification-toast-dismiss" aria-label="Dismiss notification">×</button>
+            </div>
+          </div>
+
+          <section id="quick-panel" class="quick-panel">
+            <div class="quick-panel-header">
+              <div class="quick-panel-grabber"></div>
+              <div class="quick-panel-headline">
+                <div>
+                  <span class="quick-panel-kicker">Notification Center</span>
+                  <strong>Today</strong>
+                </div>
+                <span id="quick-panel-clock" class="quick-panel-clock">09:41</span>
+              </div>
+            </div>
+
+            <div class="quick-panel-section">
+              <div class="quick-panel-section-header">
+                <div class="quick-panel-section-summary">
+                  <span class="quick-panel-section-label">Recent notifications</span>
+                  <span id="notification-history-count" class="quick-panel-section-meta">0</span>
+                </div>
+                <button id="notification-history-clear-all" class="notification-action-button" type="button">Clear All</button>
+              </div>
+              <div id="notification-history" class="notification-history">
+                <div class="notification-empty-state">Incoming notifications will collect here.</div>
+              </div>
+            </div>
+
+            <div class="slider-card">
+              <label>Brightness <span id="brightness-value">78%</span></label>
+              <input id="brightness" type="range" min="25" max="100" value="78">
+              <label>Volume <span id="volume-value">62%</span></label>
+              <input id="volume" type="range" min="0" max="100" value="62">
+              <div class="quick-toggle-grid">
+                <button id="quick-theme-toggle" class="quick-toggle-tile" type="button" aria-pressed="false">
+                  <span class="quick-toggle-icon quick-toggle-icon--appearance" aria-hidden="true"></span>
+                  <span class="quick-toggle-copy">
+                    <strong>Appearance</strong>
+                    <small id="quick-theme-label">Dark Mode</small>
+                  </span>
+                </button>
+                <button id="quick-settings-open" class="quick-toggle-tile" type="button">
+                  <span class="quick-toggle-icon quick-toggle-icon--settings" aria-hidden="true"></span>
+                  <span class="quick-toggle-copy">
+                    <strong>Settings</strong>
+                    <small>Open</small>
+                  </span>
+                </button>
+                <button id="quick-airplane-toggle" class="quick-toggle-tile" type="button" aria-pressed="false" aria-label="Airplane mode">
+                  <span class="quick-toggle-icon quick-toggle-icon--airplane" aria-hidden="true"></span>
+                  <span class="quick-toggle-copy">
+                    <strong>Airplane</strong>
+                    <small>Mode · <span id="quick-airplane-label">Off</span></small>
+                  </span>
+                </button>
+              </div>
+            </div>
+          </section>
+
+          <section id="tablet-auth-overlay" class="tablet-auth-overlay hidden">
+            <div class="tablet-auth-backdrop"></div>
+            <div class="tablet-auth-shell">
+              <div class="tablet-auth-layout">
+                <aside class="tablet-auth-showcase">
+                  <div class="tablet-auth-showcase-top">
+                    <span class="tablet-auth-showcase-chip">Welcome</span>
+                    <span id="tablet-auth-showcase-mode" class="tablet-auth-showcase-mode">Tablet locked</span>
+                  </div>
+                  <div class="tablet-auth-showcase-clockblock">
+                    <div id="tablet-auth-showcase-time" class="tablet-auth-showcase-time">09:41</div>
+                    <div id="tablet-auth-showcase-date" class="tablet-auth-showcase-date">Saturday, March 14</div>
+                  </div>
+                  <div class="tablet-auth-showcase-glance">
+                    <div class="tablet-auth-showcase-weather">
+                      <span class="tablet-auth-showcase-kicker">Current conditions</span>
+                      <strong id="tablet-auth-showcase-weather">Clear Skies</strong>
+                      <span id="tablet-auth-showcase-summary" class="tablet-auth-showcase-summary">Open and steady skies</span>
+                    </div>
+                    <div class="tablet-auth-notifications">
+                      <div class="tablet-auth-notifications-header">
+                        <div class="tablet-auth-notifications-summary">
+                          <span class="tablet-auth-showcase-kicker">Lockscreen notifications</span>
+                          <span id="tablet-auth-notification-count" class="tablet-auth-notification-count">0</span>
+                        </div>
+                        <button id="tablet-auth-notification-clear-all" class="notification-action-button" type="button">Clear All</button>
+                      </div>
+                      <div id="tablet-auth-notification-list" class="tablet-auth-notification-list">
+                        <div class="tablet-auth-notification-empty">Notifications will appear here.</div>
+                        </div>
+                      </div>
+                    <div class="tablet-auth-showcase-meta">
+                      <div class="tablet-auth-showcase-pill">
+                        <span class="tablet-auth-showcase-pill-label">Location</span>
+                        <strong id="tablet-auth-showcase-zone">Downtown Vinewood</strong>
+                      </div>
+                      <div class="tablet-auth-showcase-pill">
+                        <span class="tablet-auth-showcase-pill-label">Experience</span>
+                        <strong id="tablet-auth-showcase-greeting">Good day, Player</strong>
+                      </div>
+                    </div>
+                  </div>
+                </aside>
+
+                <div class="tablet-auth-stage">
+                    <div class="tablet-auth-hero">
+                      <div class="tablet-auth-hero-orb tablet-auth-hero-orb-one"></div>
+                      <div class="tablet-auth-hero-orb tablet-auth-hero-orb-two"></div>
+                      <div class="tablet-auth-hero-top">
+                        <span id="tablet-auth-kicker" class="tablet-auth-kicker">Account</span>
+                        <span id="tablet-auth-hero-chip" class="tablet-auth-hero-chip">Signed in</span>
+                      </div>
+                    <div class="tablet-auth-hero-body">
+                      <div id="tablet-auth-avatar" class="tablet-auth-avatar">WL</div>
+                      <div class="tablet-auth-copy">
+                        <h2 id="tablet-auth-title">Welcome to your tablet</h2>
+                        <p id="tablet-auth-copy">Sign in to your tablet account to continue into your apps, wallpaper, Mail, and contacts.</p>
+                      </div>
+                      <div class="tablet-auth-hero-summary" aria-live="polite">
+                        <div class="tablet-auth-hero-summary-pill">
+                          <span class="tablet-auth-hero-summary-label">Display</span>
+                          <strong id="tablet-auth-hero-name">Choose a name</strong>
+                        </div>
+                        <div class="tablet-auth-hero-summary-pill">
+                          <span class="tablet-auth-hero-summary-label">Unlock</span>
+                          <strong id="tablet-auth-hero-unlock">PIN required</strong>
+                        </div>
+                        <div class="tablet-auth-hero-summary-pill">
+                          <span class="tablet-auth-hero-summary-label">Next</span>
+                          <strong id="tablet-auth-hero-next">Recovery question next</strong>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="tablet-auth-panels">
+                    <div id="tablet-auth-login" class="tablet-auth-card hidden">
+                      <div class="tablet-auth-card-header">
+                        <div>
+                          <div class="eyebrow">Welcome back</div>
+                          <h3 id="tablet-auth-display-name">Tablet User</h3>
+                        </div>
+                        <span class="tablet-auth-chip">Secured</span>
+                      </div>
+                      <div id="tablet-login-pin-display" class="tablet-pin-display">Enter PIN</div>
+                      <div class="tablet-pin-pad" data-pin-target="login">
+                        <button class="tablet-pin-key" type="button" data-pin-target="login" data-pin-value="1">1</button>
+                        <button class="tablet-pin-key" type="button" data-pin-target="login" data-pin-value="2">2</button>
+                        <button class="tablet-pin-key" type="button" data-pin-target="login" data-pin-value="3">3</button>
+                        <button class="tablet-pin-key" type="button" data-pin-target="login" data-pin-value="4">4</button>
+                        <button class="tablet-pin-key" type="button" data-pin-target="login" data-pin-value="5">5</button>
+                        <button class="tablet-pin-key" type="button" data-pin-target="login" data-pin-value="6">6</button>
+                        <button class="tablet-pin-key" type="button" data-pin-target="login" data-pin-value="7">7</button>
+                        <button class="tablet-pin-key" type="button" data-pin-target="login" data-pin-value="8">8</button>
+                        <button class="tablet-pin-key" type="button" data-pin-target="login" data-pin-value="9">9</button>
+                        <button class="tablet-pin-key tablet-pin-key-action" type="button" data-pin-target="login" data-pin-action="clear">Clear</button>
+                        <button class="tablet-pin-key" type="button" data-pin-target="login" data-pin-value="0">0</button>
+                        <button class="tablet-pin-key tablet-pin-key-action" type="button" data-pin-target="login" data-pin-action="backspace">Delete</button>
+                      </div>
+                      <button id="tablet-login-button" class="primary-button full" type="button">Unlock Tablet</button>
+                      <button id="tablet-forgot-button" class="secondary-button full" type="button">Forgot PIN?</button>
+                    </div>
+
+                    <div id="tablet-auth-create" class="tablet-auth-card hidden">
+                      <div class="tablet-auth-card-header">
+                        <div>
+                          <div class="eyebrow">First-time setup</div>
+                          <h3>Create your tablet account</h3>
+                        </div>
+                        <span id="tablet-create-card-chip" class="tablet-auth-chip">Step 1 of 2</span>
+                      </div>
+                      <div id="tablet-create-step-one" class="tablet-auth-create-step">
+                        <div class="tablet-auth-create-layout tablet-auth-create-layout--setup">
+                          <div class="tablet-auth-create-column tablet-auth-create-column--details">
+                            <div class="tablet-auth-create-section">
+                              <strong>Tablet name</strong>
+                              <p>This is your tablets display name.</p>
+                            </div>
+                            <input id="tablet-create-display-name" class="input" type="text" placeholder="Tablet display name">
+                            <label class="tablet-auth-security-toggle" for="tablet-create-require-pin">
+                              <span>
+                                <strong id="tablet-create-security-mode">PIN protected unlock</strong>
+                                <small id="tablet-create-security-copy">Require a 4 to 6 digit PIN on the lockscreen.</small>
+                              </span>
+                              <input id="tablet-create-require-pin" type="checkbox" checked>
+                            </label>
+                          </div>
+                          <div class="tablet-auth-create-column tablet-auth-create-column--pin">
+                            <div class="tablet-auth-pin-panel">
+                              <div class="tablet-auth-pin-panel-header">
+                                <span class="eyebrow">Unlock</span>
+                                <strong>Choose your PIN</strong>
+                              </div>
+                              <div id="tablet-create-pin-group" class="tablet-auth-pin-group">
+                                <div id="tablet-create-pin-display" class="tablet-pin-display">Choose a PIN</div>
+                                <div class="tablet-pin-pad" data-pin-target="create">
+                                  <button class="tablet-pin-key" type="button" data-pin-target="create" data-pin-value="1">1</button>
+                                  <button class="tablet-pin-key" type="button" data-pin-target="create" data-pin-value="2">2</button>
+                                  <button class="tablet-pin-key" type="button" data-pin-target="create" data-pin-value="3">3</button>
+                                  <button class="tablet-pin-key" type="button" data-pin-target="create" data-pin-value="4">4</button>
+                                  <button class="tablet-pin-key" type="button" data-pin-target="create" data-pin-value="5">5</button>
+                                  <button class="tablet-pin-key" type="button" data-pin-target="create" data-pin-value="6">6</button>
+                                  <button class="tablet-pin-key" type="button" data-pin-target="create" data-pin-value="7">7</button>
+                                  <button class="tablet-pin-key" type="button" data-pin-target="create" data-pin-value="8">8</button>
+                                  <button class="tablet-pin-key" type="button" data-pin-target="create" data-pin-value="9">9</button>
+                                  <button class="tablet-pin-key tablet-pin-key-action" type="button" data-pin-target="create" data-pin-action="clear">Clear</button>
+                                  <button class="tablet-pin-key" type="button" data-pin-target="create" data-pin-value="0">0</button>
+                                  <button class="tablet-pin-key tablet-pin-key-action" type="button" data-pin-target="create" data-pin-action="backspace">Delete</button>
+                                </div>
+                              </div>
+                              <div id="tablet-create-quick-unlock-card" class="tablet-auth-quick-unlock-card hidden">
+                                <strong>Quick unlock selected</strong>
+                                <p>This tablet will show a single unlock button instead of the keypad. You can add a PIN later in Settings.</p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="tablet-auth-actions">
+                          <button id="tablet-create-next" class="primary-button full" type="button">Continue</button>
+                        </div>
+                      </div>
+                      <div id="tablet-create-step-two" class="tablet-auth-create-step hidden">
+                        <div class="tablet-auth-create-layout tablet-auth-create-layout--review">
+                          <div class="tablet-auth-create-column">
+                            <div class="tablet-auth-create-section">
+                              <strong>Recovery question</strong>
+                              <p>Choose something memorable in case you ever need to remove the PIN or change your password.</p>
+                            </div>
+                            <div class="tablet-auth-create-fields">
+                              <select id="tablet-security-question" class="input select-input">
+                                <option value="">Choose a security question</option>
+                                <option value="What was the name of your first pet?">What was the name of your first pet?</option>
+                                <option value="What street did you grow up on?">What street did you grow up on?</option>
+                                <option value="What was your first vehicle?">What was your first vehicle?</option>
+                                <option value="What city were you born in?">What city were you born in?</option>
+                                <option value="What is your favorite movie?">What is your favorite movie?</option>
+                              </select>
+                              <input id="tablet-security-answer" class="input" type="text" placeholder="Security answer">
+                            </div>
+                          </div>
+                          <div class="tablet-auth-create-column">
+                            <div class="tablet-auth-review">
+                              <div class="tablet-auth-review-row">
+                                <span>Display name</span>
+                                <strong id="tablet-create-review-name">Not set yet</strong>
+                              </div>
+                              <div class="tablet-auth-review-row">
+                                <span>Unlock method</span>
+                                <strong id="tablet-create-review-unlock">PIN required</strong>
+                              </div>
+                              <div class="tablet-auth-review-row">
+                                <span>Recovery question</span>
+                                <strong id="tablet-create-review-question">Not chosen yet</strong>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="tablet-auth-actions tablet-auth-actions-split">
+                          <button id="tablet-create-back" class="secondary-button" type="button">Back</button>
+                          <button id="tablet-create-button" class="primary-button" type="button">Create Tablet Account</button>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div id="tablet-auth-open" class="tablet-auth-card hidden">
+                      <div class="tablet-auth-card-header">
+                        <div>
+                          <div class="eyebrow">Quick unlock enabled</div>
+                          <h3 id="tablet-open-display-name">Tablet User</h3>
+                        </div>
+                        <span class="tablet-auth-chip">Quick access</span>
+                      </div>
+                      <div id="tablet-open-agenda" class="tablet-auth-open-agenda">
+                        <div class="agenda-overview">
+                          <div class="agenda-overview-copy">
+                            <span id="tablet-open-agenda-label" class="agenda-overview-label">Agenda</span>
+                            <p id="tablet-open-agenda-text">Monday, March 16</p>
+                          </div>
+                          <div class="agenda-overview-stats">
+                            <div class="agenda-overview-stat">
+                              <strong id="tablet-open-agenda-today">0</strong>
+                              <span>Today</span>
+                            </div>
+                            <div class="agenda-overview-stat">
+                              <strong id="tablet-open-agenda-week">0</strong>
+                              <span>This week</span>
+                            </div>
+                          </div>
+                          <p id="tablet-open-agenda-note" class="agenda-overview-note">Nothing scheduled right now.</p>
+                        </div>
+                        <div id="tablet-open-agenda-list" class="agenda-list"></div>
+                      </div>
+                      <button id="tablet-open-button" class="primary-button full" type="button">Unlock Tablet</button>
+                    </div>
+
+                    <div id="tablet-auth-recovery" class="tablet-auth-card hidden">
+                      <div class="tablet-auth-card-header">
+                        <div>
+                          <div class="eyebrow">Account recovery</div>
+                          <h3>Recover your tablet access</h3>
+                        </div>
+                        <span class="tablet-auth-chip">Secure reset</span>
+                      </div>
+                      <div class="tablet-auth-recovery-copy">
+                        <strong>Select the account you want to recover.</strong>
+                        <p>Answer the saved security question correctly and the PIN will be removed from this tablet.</p>
+                      </div>
+                      <button id="tablet-recovery-account" class="tablet-recovery-account" type="button">
+                        <span class="tablet-recovery-account-avatar" id="tablet-recovery-account-avatar">WL</span>
+                        <span class="tablet-recovery-account-copy">
+                          <strong id="tablet-recovery-account-name">Tablet User</strong>
+                          <small id="tablet-recovery-account-meta">Saved tablet account</small>
+                        </span>
+                      </button>
+                      <label for="tablet-recovery-question">Security question</label>
+                      <div id="tablet-recovery-question" class="tablet-recovery-question">No security question set.</div>
+                      <input id="tablet-recovery-answer" class="input" type="text" placeholder="Security answer">
+                      <div class="tablet-auth-actions">
+                        <button id="tablet-recovery-submit" class="primary-button full" type="button">Recover Access</button>
+                        <button id="tablet-wipe-button" class="secondary-button danger-button full" type="button">Wipe Tablet</button>
+                        <button id="tablet-recovery-back" class="secondary-button full" type="button">Back</button>
+                      </div>
+                    </div>
+                  </div>
+                  <div id="tablet-auth-status" class="tablet-auth-status is-empty"></div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <main class="home-grid" id="home-grid">
+            <section id="home-hero-card" class="hero-card home-panel" data-home-panel="hero">
+              <button id="home-minimize-hero" class="home-panel-minimize" type="button" aria-label="Minimize overview panel" title="Minimize overview panel">&#8722;</button>
+              <div class="weather-ambient" id="weather-ambient"></div>
+              <div class="hero-orb hero-orb-one"></div>
+              <div class="hero-orb hero-orb-two"></div>
+
+              <div class="hero-top">
+                <div class="hero-identity">
+                  <div class="eyebrow">Tablet</div>
+                  <div class="hero-greeting" id="home-greeting">Good day</div>
+                  <p class="hero-date-line" id="home-date-line">Saturday, March 14</p>
+                </div>
+                <div id="home-mail-status-chip" class="hero-status-chip hero-mail-offline">
+                  <span class="hero-status-dot" aria-hidden="true"></span>
+                  <span id="home-mail-status-label">Offline</span>
+                </div>
+              </div>
+
+              <div class="hero-lockscreen">
+                <div class="hero-clock-block">
+                  <h1 class="hero-clock" id="home-clock">09:41</h1>
+                  <p class="hero-clock-caption" id="home-clock-caption">Hello Player, the city is calm tonight with clear skies overhead and a quiet run ahead.</p>
+                </div>
+
+                <div class="hero-weather-panel">
+                  <div class="hero-weather-heading">
+                    <div>
+                      <div class="eyebrow" id="weather-city">Current Area</div>
+                      <p id="weather-line">Sunshine</p>
+                      <p id="weather-subline">Open visibility</p>
+                    </div>
+                    <div class="hero-icon" id="weather-icon" aria-hidden="true"></div>
+                  </div>
+
+                  <div class="forecast-row">
+                    <div class="forecast-pill forecast-pill-emphasis"><span id="forecast-1-label">Now</span><strong id="forecast-1-value" aria-label="Clear"></strong></div>
+                    <div class="forecast-pill"><span id="forecast-2-label">11PM</span><strong id="forecast-2-value" aria-label="Clear"></strong></div>
+                    <div class="forecast-pill"><span id="forecast-3-label">1AM</span><strong id="forecast-3-value" aria-label="Cloudy"></strong></div>
+                    <div class="forecast-pill"><span id="forecast-4-label">4AM</span><strong id="forecast-4-value" aria-label="Rain"></strong></div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="hero-bottom">
+                <div class="nav-card">
+                  <div class="eyebrow">Navigation</div>
+                  <h3 id="nav-zone">Downtown Vinewood</h3>
+                  <p id="nav-street">Spanish Ave</p>
+                  <div class="nav-actions">
+                    <button id="waypoint-button" class="primary-button">Set Waypoint</button>
+                    <button id="open-calendar-from-home" class="secondary-button">Open Agenda</button>
+                  </div>
+                </div>
+
+                <section class="mail-glance recent-mail-panel">
+                  <div class="recent-mail-panel-header">
+                    <div class="eyebrow">Recent Mail</div>
+                    <h3 id="mail-count">0 inbox messages</h3>
+                    <p id="mail-preview">Latest inbox mail appears here once your messages sync.</p>
+                    <button id="home-mail-button" class="ghost-chip recent-mail-panel-mail-open" type="button">Open Mail</button>
+                  </div>
+                  <div class="recent-mail-list" id="home-recent-mail-list"></div>
+                  <p class="recent-mail-hint">Tap any message to reveal or hide it.</p>
+                </section>
+              </div>
+            </section>
+
+            <section id="home-dock-card" class="search-card glass home-panel" data-home-panel="dock">
+              <div class="home-card-toolbar home-card-toolbar-search">
+                <label class="search-input-shell" for="app-search">
+                  <span class="search-icon">&#8981;</span>
+                  <input id="app-search" class="search-input" type="text" placeholder="Search apps">
+                </label>
+                <div class="home-dock-toolbar-actions">
+                  <button type="button" id="home-arrange-dock-cancel" class="ghost-chip home-dock-arrange-cancel hidden" aria-label="Cancel dock changes">Cancel</button>
+                  <button type="button" id="home-arrange-dock" class="ghost-chip home-dock-arrange-btn" aria-pressed="false" title="Drag apps to reorder the dock">Arrange</button>
+                  <button id="home-minimize-dock" class="home-panel-minimize home-panel-minimize-inline" type="button" aria-label="Minimize app dock" title="Minimize app dock">&#8722;</button>
+                </div>
+              </div>
+              <div class="section-row home-section-row">
+                <div>
+                  <div class="eyebrow">Quick Launch</div>
+                  <h3 class="panel-title">App Dock</h3>
+                  <p id="home-dock-arrange-hint" class="home-dock-arrange-hint hidden">Drag tiles to reorder, then tap Done to save.</p>
+                </div>
+              </div>
+              <div class="apps-grid" id="apps-grid"></div>
+            </section>
+
+            <section id="agenda-card" class="agenda-card glass home-panel" data-home-panel="agenda">
+              <div class="section-row home-section-row agenda-header-row">
+                <div class="agenda-header-copy">
+                  <div class="eyebrow">Today</div>
+                  <h3 class="panel-title">Agenda</h3>
+                </div>
+                <div class="agenda-header-actions">
+                  <button id="open-calendar-button" class="ghost-chip">Calendar</button>
+                  <button id="home-minimize-agenda" class="home-panel-minimize home-panel-minimize-inline" type="button" aria-label="Minimize agenda" title="Minimize agenda">&#8722;</button>
+                </div>
+              </div>
+              <div class="agenda-overview">
+                <div class="agenda-overview-copy">
+                  <span id="agenda-overview-label" class="agenda-overview-label">Calendar</span>
+                  <p id="agenda-overview-text">Monday, March 16</p>
+                </div>
+                <div class="agenda-overview-stats">
+                  <div class="agenda-overview-stat">
+                    <strong id="agenda-today-count">0</strong>
+                    <span>Today</span>
+                  </div>
+                  <div class="agenda-overview-stat">
+                    <strong id="agenda-week-count">0</strong>
+                    <span>Next 7 days</span>
+                  </div>
+                </div>
+                <p id="agenda-overview-note" class="agenda-overview-note">You have no upcoming events.</p>
+              </div>
+              <div class="agenda-list" id="agenda-list"></div>
+            </section>
+
+          </main>
+
+          <div id="home-panel-dock" class="home-panel-dock hidden" aria-label="Minimized toolbar">
+            <button id="home-panel-dock-handle" class="home-panel-dock-handle" type="button" aria-label="Show minimized toolbar" title="Show minimized toolbar">
+              <span class="home-panel-dock-handle-icon" aria-hidden="true">
+                <span></span><span></span><span></span><span></span>
+              </span>
+              <span id="home-panel-dock-count" class="home-panel-dock-count">0</span>
+            </button>
+            <div id="home-panel-dock-tray" class="home-panel-dock-tray"></div>
+          </div>
+
+          <section id="app-view" class="app-view hidden">
+            <div id="app-panel" class="app-panel">
+              <div id="app-toolbar" class="app-toolbar">
+                <div class="app-toolbar-start">
+                  <button id="app-back" class="icon-button" aria-label="Back">&#8592;</button>
+                  <div>
+                    <div class="eyebrow" id="app-kicker">App</div>
+                    <div class="app-title" id="app-title">Application</div>
+                    <div class="app-subtitle" id="app-subtitle">Ready.</div>
+                  </div>
+                </div>
+
+                <div class="app-toolbar-actions">
+                  <button id="app-minimize" class="icon-button" type="button" aria-label="Minimize app" title="Minimize app">&#8722;</button>
+                  <div id="app-toolbar-chip" class="app-toolbar-chip hidden"></div>
+                  <div id="Yap-toolbar-extras" class="Yap-toolbar-extras hidden" aria-label="Yap actions">
+                    <button id="Yap-toolbar-new-Yap" type="button" class="Yap-toolbar-app-btn Yap-toolbar-app-btn-primary">New Yap</button>
+                    <button id="Yap-toolbar-refresh" type="button" class="Yap-toolbar-app-btn Yap-toolbar-app-btn-refresh" title="Refresh feed">Refresh</button>
+                    <button id="Yap-toolbar-logout" type="button" class="Yap-toolbar-app-btn Yap-toolbar-app-btn-logout">Log out</button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="app-content">
+                <section id="mail-screen" class="app-screen hidden">
+                  <div id="mail-auth" class="mail-auth">
+                    <div class="mail-auth-shell">
+                      <div class="mail-auth-card">
+                        <div class="mail-auth-header">
+                          <div class="mail-auth-header-copy">
+                            <div class="eyebrow">Mailbox access</div>
+                            <h2>Sign in or create an email</h2>
+                            <p>Create a mail account to connect with the world. Your friends, family, and even your boss might be trying to get ahold of you!</p>
+                          </div>
+                          <div class="mail-auth-hero">
+                            <div class="mail-auth-orb"></div>
+                            <div class="mail-auth-hero-copy">
+                              <span>Secured Mail App</span>
+                              <strong>Tablet Mail</strong>
+                              <small>Built for secure, fast communication.</small>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="mail-auth-toolbar">
+                          <div class="mail-auth-points">
+                            <span>Sort emails easily!</span>
+                            <span>Send pictures and videos!</span>
+                          </div>
+                        </div>
+
+                        <div class="tabs">
+                          <button data-tab="login" class="tab active">Log In</button>
+                          <button data-tab="create" class="tab">Create</button>
+                        </div>
+
+                        <div id="tab-login" class="tab-body active">
+                          <input id="login-email" class="input" type="text" placeholder="Email or username">
+                          <input id="login-password" class="input" type="password" placeholder="Password">
+                          <button id="login-button" class="primary-button full">Log In</button>
+                        </div>
+
+                        <div id="tab-create" class="tab-body">
+                          <input id="create-username" class="input" type="text" placeholder="Username">
+                          <input id="create-display" class="input" type="text" placeholder="Display name">
+                          <input id="create-password" class="input" type="password" placeholder="Password">
+                          <button id="create-button" class="primary-button full">Create Email</button>
+                        </div>
+                      </div>
+
+                      <div class="mail-auth-side">
+                        <div class="mail-auth-stats">
+                          <div class="mail-mini-stat"><span>Mailboxes</span><strong id="auth-account-count">0</strong></div>
+                          <div class="mail-mini-stat"><span>Messages</span><strong id="auth-message-count">0</strong></div>
+                        </div>
+
+                        <div class="mail-auth-overview">
+                          <div class="section-heading">
+                            <div>
+                              <div class="eyebrow">Saved mailboxes</div>
+                              <h3>Quick access</h3>
+                            </div>
+                          </div>
+                          <div id="auth-accounts-list" class="auth-accounts-list"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div id="mail-app" class="mail-app hidden">
+                    <div class="mail-workspace">
+                      <aside class="mail-sidebar-panel">
+                        <div class="mail-sidebar-header">
+                          <div class="mail-account-avatar" id="signed-avatar">IN</div>
+                          <div class="mail-account-copy">
+                            <div class="eyebrow">Signed in as</div>
+                            <div class="mail-signed-email" id="signed-email" role="group" aria-label="Mailbox address">
+                              <span class="mail-signed-email-line mail-signed-email-local" id="signed-email-local">user</span>
+                              <span class="mail-signed-email-line mail-signed-email-domain" id="signed-email-domain">@domain</span>
+                            </div>
+                            <p id="signed-display">Mailbox owner</p>
+                          </div>
+                        </div>
+
+                        <button id="mail-compose-open" class="primary-button full mail-compose-trigger">Compose</button>
+
+                        <div class="mail-folder-list">
+                          <button id="mail-folder-inbox" class="mail-folder-button active" type="button">
+                            <span>Inbox</span>
+                            <strong id="mail-folder-inbox-count">0</strong>
+                          </button>
+                          <button id="mail-folder-starred" class="mail-folder-button" type="button">
+                            <span>Starred</span>
+                            <strong id="mail-folder-starred-count">0</strong>
+                          </button>
+                          <button id="mail-folder-sent" class="mail-folder-button" type="button">
+                            <span>Sent</span>
+                            <strong id="mail-folder-sent-count">0</strong>
+                          </button>
+                        </div>
+
+                        <div class="mail-stat-row">
+                          <div class="mail-stat-tile"><span>Messages</span><strong id="mail-inbox-total">0</strong></div>
+                          <div class="mail-stat-tile"><span>Contacts</span><strong id="mail-contact-total">0</strong></div>
+                        </div>
+
+                        <div class="mail-sidebar-actions">
+                          <button id="open-contacts-from-mail" class="secondary-button">Open Contacts</button>
+                          <button id="logout-button" class="secondary-button">Log Out</button>
+                        </div>
+                      </aside>
+
+                      <section class="mail-main-panel">
+                        <div class="mail-main-header">
+                          <div>
+                            <div class="eyebrow">Mailbox</div>
+                            <h3 id="mail-folder-title">Inbox</h3>
+                            <p id="mail-folder-description" class="mail-section-subtitle">View mail, or star your favorite messages to save them for easy access later.</p>
+                          </div>
+                          <div class="mail-main-actions">
+                            <button id="mail-refresh" class="icon-button" aria-label="Refresh mailbox">&#8635;</button>
+                          </div>
+                        </div>
+
+                        <section class="mail-list-card">
+                          <div class="mail-list-header-row">
+                            <span id="mail-list-from-header">From</span>
+                            <span>Subject</span>
+                            <span>Read</span>
+                            <span id="mail-list-time-header">Received</span>
+                          </div>
+                          <div id="inbox-list" class="mail-list-body"></div>
+                          <div class="mail-pagination">
+                            <button id="mail-page-prev" class="secondary-button small-button" type="button">Previous</button>
+                            <span id="mail-page-status">Page 1 of 1</span>
+                            <button id="mail-page-next" class="secondary-button small-button" type="button">Next</button>
+                          </div>
+                        </section>
+                      </section>
+                    </div>
+
+                    <div id="reader-shell" class="mail-modal reader-modal hidden">
+                      <div class="mail-modal-card reader-modal-card">
+                        <div class="section-heading">
+                          <div>
+                            <div class="eyebrow">Message</div>
+                            <h3>Inbox item</h3>
+                            <p class="mail-section-subtitle">Read, reply, or delete this message.</p>
+                          </div>
+                          <div class="reader-actions-row">
+                            <button id="mail-reader-close" class="secondary-button small-button reader-close-button" type="button">Close</button>
+                            <button id="mail-star-button" class="secondary-button small-button reader-star-button" title="Star message" aria-label="Star message" type="button">&#9734;</button>
+                            <button id="mail-delete-button" class="secondary-button small-button danger-button" title="Delete message" type="button">Delete</button>
+                            <button id="reply-button" class="primary-button small-button" type="button">Reply</button>
+                          </div>
+                        </div>
+
+                        <div id="reader-empty" class="reader-empty">
+                          <h3 id="reader-empty-title">Select a message</h3>
+                          <p id="reader-empty-copy">Choose a message from your inbox to open it.</p>
+                        </div>
+
+                        <div id="reader-view" class="reader-view hidden">
+                          <div class="reader-topline">
+                            <div class="reader-avatar" id="reader-avatar">WL</div>
+                            <div class="reader-topline-copy">
+                              <div class="eyebrow" id="reader-from-label">From</div>
+                              <h2 id="reader-subject">Subject</h2>
+                            </div>
+                          </div>
+                          <div class="reader-meta-grid">
+                            <div class="reader-meta-chip">
+                              <span>From</span>
+                              <strong id="reader-from-value">system@tablet</strong>
+                            </div>
+                            <div class="reader-meta-chip">
+                              <span>To</span>
+                              <strong id="reader-to-value">your tablet</strong>
+                            </div>
+                            <div class="reader-meta-chip">
+                              <span>Received</span>
+                              <strong id="reader-timestamp">now</strong>
+                            </div>
+                          </div>
+                          <div id="reader-meta" class="reader-meta"></div>
+                          <div id="reader-body" class="reader-body"></div>
+                          <div id="reader-actions" class="reader-actions hidden"></div>
+                          <div id="reader-attachments" class="reader-attachments hidden"></div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div id="compose-shell" class="compose-popout hidden">
+                      <div class="compose-popout-card">
+                        <div class="section-heading">
+                          <div>
+                            <div class="eyebrow">Compose</div>
+                            <h3>New message</h3>
+                            <p class="mail-section-subtitle">Draft a message like a full mailbox composer.</p>
+                          </div>
+                          <button id="compose-close-button" class="secondary-button small-button" type="button">Close</button>
+                        </div>
+
+                        <div class="compose-from-chip">From <span id="compose-from">email@domain</span></div>
+
+                        <div class="compose-field-stack">
+                          <label class="compose-field">
+                            <span>Recipient</span>
+                            <div class="compose-recipient-shell">
+                              <input id="compose-to" class="input" type="text" placeholder="name@wlabs.city" autocomplete="off">
+                              <div id="compose-contact-picker" class="compose-contact-picker hidden"></div>
+                            </div>
+                          </label>
+                          <label class="compose-field">
+                            <span>Subject</span>
+                            <input id="compose-subject" class="input" type="text" placeholder="What is this about?">
+                          </label>
+                        </div>
+
+                        <div class="compose-editor-card">
+                          <div class="compose-toolbar">
+                            <div class="compose-toolbar-group">
+                              <label class="compose-toolbar-label" for="compose-text-size">Text size</label>
+                              <select id="compose-text-size" class="compose-toolbar-select">
+                                <option value="12">12</option>
+                                <option value="14">14</option>
+                                <option value="16" selected>16</option>
+                                <option value="18">18</option>
+                                <option value="20">20</option>
+                              </select>
+                            </div>
+                            <div class="compose-toolbar-group">
+                              <button id="compose-bold-button" type="button" class="secondary-button small-button compose-toolbar-button" aria-pressed="false">Bold</button>
+                              <button id="compose-italic-button" type="button" class="secondary-button small-button compose-toolbar-button" aria-pressed="false">Italic</button>
+                              <button id="toggle-attachments-button" type="button" class="secondary-button small-button compose-toolbar-button">Attach files</button>
+                            </div>
+                          </div>
+
+                          <div id="compose-body" class="compose-textarea" contenteditable="true" data-placeholder="Write your message..."></div>
+                          <div id="compose-attachments" class="compose-attachments hidden"></div>
+                        </div>
+
+                        <div class="compose-actions">
+                          <button id="compose-cancel-button" class="secondary-button" type="button">Cancel</button>
+                          <button id="send-button" class="primary-button" type="button">Send</button>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div id="attachment-modal" class="mail-modal hidden">
+                      <div class="mail-modal-card attachment-modal-card">
+                        <div class="section-heading">
+                          <div>
+                            <div class="eyebrow">Gallery</div>
+                            <h3>Attach files</h3>
+                            <p class="mail-section-subtitle">Choose artwork from the tablet gallery, highlight it, then add it to your message.</p>
+                          </div>
+                          <button id="attachment-modal-close" class="secondary-button small-button" type="button">Close</button>
+                        </div>
+
+                        <div id="attachment-picker" class="attachment-picker attachment-picker-modal"></div>
+
+                        <div class="compose-actions attachment-actions">
+                          <span id="attachment-selection-status" class="attachment-selection-status">0 selected</span>
+                          <button id="attachment-picker-apply" class="primary-button" type="button">Add selected</button>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div id="attachment-viewer-modal" class="mail-modal hidden">
+                      <div class="mail-modal-card attachment-viewer-card">
+                        <div class="section-heading">
+                          <div>
+                            <div class="eyebrow">Attachment</div>
+                            <h3 id="attachment-viewer-title">Artwork preview</h3>
+                            <p class="mail-section-subtitle">Open received artwork at full size, then save it into your tablet gallery.</p>
+                          </div>
+                          <button id="attachment-viewer-close" class="secondary-button small-button reader-close-button" type="button">Close</button>
+                        </div>
+
+                        <div class="attachment-viewer-frame">
+                          <img id="attachment-viewer-image" class="attachment-viewer-image-el" alt="Mail attachment preview">
+                          <video id="attachment-viewer-video" class="attachment-viewer-video-el hidden" controls playsinline preload="metadata"></video>
+                        </div>
+
+                        <div class="attachment-viewer-actions">
+                          <button id="attachment-viewer-save" class="primary-button" type="button">Save to Gallery</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+
+                <section id="contacts-screen" class="app-screen hidden">
+                  <div id="contacts-auth" class="contacts-auth hidden">
+                    <div class="contacts-auth-card">
+                      <div class="contacts-auth-visual">
+                        <div class="contacts-auth-orb contacts-auth-orb-large"></div>
+                        <div class="contacts-auth-orb contacts-auth-orb-small"></div>
+                        <div class="contacts-auth-badge">WL</div>
+                      </div>
+
+                      <div class="contacts-auth-copy">
+                        <div class="eyebrow">Welcome to Contacts</div>
+                        <h2>Connect with the world through Mail</h2>
+                        <p>Sign in to your mailbox to add contacts, and share your email with nearby friends.</p>
+                      </div>
+
+                      <div class="contacts-auth-points">
+                        <span>Save personal contacts</span>
+                        <span>Send nearby contact requests</span>
+                        <span>Accept or reject contact requests</span>
+                      </div>
+
+                      <div class="contacts-auth-actions">
+                        <button id="contacts-login-button" class="primary-button" type="button">Log In to Mail</button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div id="contacts-app-shell" class="contacts-workspace">
+                    <aside class="contacts-sidebar-panel">
+                      <section class="contacts-card contacts-card-hero">
+                        <div class="contacts-profile">
+                          <div class="contacts-avatar" id="contacts-profile-avatar">CT</div>
+                          <div class="contacts-profile-copy">
+                            <div class="eyebrow">Hub</div>
+                            <h2 id="contacts-profile-title">Tablet Contacts</h2>
+                          </div>
+                        </div>
+
+                        <div class="contacts-profile-details">
+                          <div id="contacts-profile-email" class="contacts-profile-email">email@wlabs.city</div>
+                          <p id="contacts-profile-copy">Create contact cards, keep them organized, and move directly into Mail when you are ready to write.</p>
+                        </div>
+
+                        <div class="contacts-sidebar-actions">
+                          <button id="contacts-open-mail" class="primary-button">Open Mail</button>
+                        </div>
+
+                        <div id="contacts-share-status" class="contacts-inline-status hidden"></div>
+                      </section>
+                    </aside>
+
+                    <section class="contacts-main-panel">
+                      <section class="contacts-card contacts-header-card">
+                        <div class="contacts-main-header">
+                          <div>
+                            <div class="eyebrow">Connect</div>
+                            <h3>Contacts</h3>
+                            <p class="mail-section-subtitle">Easily mail your friends by adding them as contacts.</p>
+                          </div>
+                          <div class="contacts-main-tools">
+                            <input id="contacts-search" class="input contacts-search-input" type="text" placeholder="Search contacts or email...">
+                          </div>
+                        </div>
+                      </section>
+
+                      <section id="contacts-requests-card" class="contacts-card contacts-requests-card hidden">
+                        <div class="contacts-list-toolbar">
+                          <strong>Contact requests</strong>
+                          <span id="contacts-request-count">0 pending</span>
+                        </div>
+                        <div id="contacts-request-list" class="contacts-request-list"></div>
+                      </section>
+
+                      <section class="contacts-card contacts-list-panel contacts-directory-card">
+                        <div class="contacts-list-toolbar">
+                          <strong>Saved contacts</strong>
+                          <span id="contacts-list-count">0 contacts</span>
+                        </div>
+                        <div id="contacts-app-list" class="contacts-tiles-grid"></div>
+                      </section>
+                    </section>
+                  </div>
+
+                  <button id="contacts-add-button" class="contacts-add-fab" type="button" aria-label="Add contact">+</button>
+                  <button id="contacts-share-email-button" class="contacts-share-fab" type="button">Share Email</button>
+
+                  <div id="contacts-modal" class="mail-modal hidden">
+                    <div class="mail-modal-card contacts-modal-card">
+                      <div class="section-heading">
+                        <div>
+                          <div class="eyebrow">Add contact</div>
+                          <h3>Save someone new</h3>
+                          <p class="mail-section-subtitle">Create a contact manually with a name and email address.</p>
+                        </div>
+                      </div>
+
+                      <div class="contacts-form">
+                        <label class="contacts-field">
+                          <span>Name</span>
+                          <input id="contacts-name" class="input" type="text" placeholder="Display name">
+                        </label>
+                        <label class="contacts-field">
+                          <span>Email</span>
+                          <input id="contacts-email" class="input" type="text" placeholder="name@wlabs.city">
+                        </label>
+                      </div>
+
+                      <div class="contacts-share-actions">
+                        <button id="contacts-save-button" class="primary-button" type="button">Save Contact</button>
+                        <button id="contacts-modal-close" class="secondary-button" type="button">Close</button>
+                      </div>
+
+                      <div id="contacts-form-status" class="contacts-inline-status hidden"></div>
+                    </div>
+                  </div>
+
+                  <div id="contacts-share-modal" class="mail-modal hidden">
+                    <div class="mail-modal-card contacts-modal-card contacts-share-modal-card">
+                      <div class="section-heading">
+                        <div>
+                          <div class="eyebrow">Share email</div>
+                          <h3>Send a contact request</h3>
+                          <p class="mail-section-subtitle">Choose a nearby player and send them your active email as a request they can accept or reject.</p>
+                        </div>
+                        <button id="contacts-share-modal-close" class="secondary-button small-button" type="button">Close</button>
+                      </div>
+
+                      <div class="contacts-form">
+                        <label class="contacts-field">
+                          <span>Your email</span>
+                          <input id="contacts-share-from-email" class="input" type="text" readonly>
+                        </label>
+                        <label class="contacts-field">
+                          <span>Nearby player</span>
+                          <select id="contacts-share-target" class="input contacts-share-select"></select>
+                        </label>
+                      </div>
+
+                      <div class="contacts-share-actions">
+                        <button id="contacts-share-send-button" class="primary-button" type="button">Send Request</button>
+                        <button id="contacts-share-modal-refresh" class="secondary-button" type="button">Refresh Nearby</button>
+                      </div>
+
+                      <div id="contacts-share-modal-status" class="contacts-inline-status hidden"></div>
+                    </div>
+                  </div>
+                </section>
+
+                <section id="camera-screen" class="app-screen hidden">
+                  <div id="camera-app" class="camera-app">
+                    <div id="camera-live-stage" class="camera-live-stage">
+                      <div class="camera-scene">
+                        <div id="camera-capture-flash" class="camera-capture-flash"></div>
+                        <div id="camera-countdown" class="camera-countdown hidden">3</div>
+
+                        <div class="camera-topbar">
+                          <div class="camera-topbar-left">
+                            <button id="camera-back" class="icon-button" type="button" aria-label="Back">&#8592;</button>
+                            <button id="camera-settings-toggle" class="camera-top-button" type="button">Settings</button>
+                          </div>
+
+                          <div class="camera-top-status">
+                            <strong id="camera-session-title">Rear Camera</strong>
+                            <span id="camera-session-subtitle">Live preview ready</span>
+                          </div>
+
+                          <button id="camera-flip" class="camera-top-button camera-top-flip" type="button">Front</button>
+                        </div>
+
+                        <div id="camera-settings-panel" class="camera-settings-panel hidden">
+                          <button id="camera-grid-toggle" class="camera-control-chip" type="button">Grid Off</button>
+                          <label class="camera-settings-zoom" for="camera-zoom">
+                            <span>Zoom</span>
+                            <input id="camera-zoom" class="camera-zoom-slider" type="range" min="0" max="1" step="0.01" value="0.32" aria-label="Camera zoom">
+                          </label>
+                        </div>
+
+                        <div id="camera-live-center" class="camera-live-center">
+                          <div id="camera-aspect-shell" class="camera-aspect-shell ratio-4-3">
+                            <div class="camera-aspect-clip">
+                              <div class="camera-preview-badges">
+                                <div class="camera-preview-left">
+                                  <span id="camera-live-hint" class="camera-preview-hint">Drag to pan · Move / Left Alt for look · Wheel zooms</span>
+                                </div>
+                                <div class="camera-preview-actions">
+                                  <span id="camera-zoom-value" class="camera-preview-zoom">1.0x</span>
+                                  <button id="camera-look-toggle" class="camera-preview-toggle" type="button">Move</button>
+                                </div>
+                              </div>
+                              <div id="camera-grid-overlay" class="camera-grid-overlay hidden"></div>
+                              <div id="camera-focus-ring" class="camera-focus-ring hidden"></div>
+                              <div id="camera-drag-layer" class="camera-drag-layer" aria-label="Camera drag surface"></div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="camera-bottom-sheet">
+                          <div class="camera-bottom-toolbar" role="group" aria-label="Camera capture controls">
+                            <div class="camera-bottom-toolbar-left">
+                              <div class="camera-bottom-toolbar-gallery">
+                                <button id="camera-open-gallery" class="camera-gallery-button camera-gallery-button--compact" type="button" aria-label="Open gallery">
+                                  <span class="camera-gallery-thumb-frame">
+                                    <img id="camera-gallery-thumb" class="hidden" alt="Latest gallery item">
+                                    <video id="camera-gallery-thumb-video" class="camera-gallery-thumb-video hidden" muted playsinline loop preload="metadata"></video>
+                                    <span id="camera-gallery-thumb-placeholder" class="camera-gallery-thumb-placeholder" aria-hidden="true">
+                                      <img class="camera-gallery-thumb-placeholder-icon" src="icons/gallery.png" alt="">
+                                    </span>
+                                  </span>
+                                  <small id="camera-gallery-count">0 saved</small>
+                                </button>
+                              </div>
+                              <span class="camera-bottom-toolbar-spacer" aria-hidden="true"></span>
+                              <button class="camera-mode-pill camera-mode-pill--edge active" type="button" data-camera-mode="photo" role="tab" aria-selected="true">Photo</button>
+                            </div>
+                            <div class="camera-bottom-toolbar-center">
+                              <div class="camera-shutter-cluster">
+                                <div id="camera-photo-shutter-wrap">
+                                  <button id="camera-shutter" class="camera-shutter camera-shutter--compact" type="button" aria-label="Capture photo">
+                                    <span class="camera-shutter-core camera-shutter-core--compact"></span>
+                                  </button>
+                                </div>
+                                <div id="camera-video-shutter-wrap" class="hidden">
+                                  <div id="camera-video-idle-wrap">
+                                    <button id="camera-record-start" class="camera-shutter camera-shutter-record camera-shutter--compact" type="button" aria-label="Start recording">
+                                      <span class="camera-shutter-record-core camera-shutter-record-core--compact"></span>
+                                    </button>
+                                  </div>
+                                  <div id="camera-video-active-wrap" class="hidden">
+                                    <button id="camera-record-stop" class="camera-video-stop camera-video-stop--compact" type="button" title="Stop and save">Stop</button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="camera-bottom-toolbar-right">
+                              <button id="camera-video-mode" class="camera-mode-pill camera-mode-pill--edge" type="button" data-camera-mode="video" role="tab" aria-selected="false">Video</button>
+                            </div>
+                          </div>
+
+                          <div class="camera-live-hint camera-bottom-hint">
+                            <span>Grid and zoom are in Settings.</span>
+                          </div>
+                        </div>
+
+                        <div id="camera-error-card" class="camera-error-card hidden">
+                          <strong>Camera unavailable</strong>
+                          <p id="camera-error-text">The tablet camera could not start.</p>
+                          <div class="camera-error-actions">
+                            <button id="camera-error-retry" class="primary-button" type="button">Retry Camera</button>
+                            <button id="camera-error-gallery" class="secondary-button" type="button">Open Gallery</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div id="camera-review-stage" class="camera-review-stage hidden">
+                      <div class="camera-review-shell">
+                        <section class="camera-review-preview">
+                          <div class="camera-review-topline">
+                            <div>
+                              <div class="eyebrow">Review</div>
+                              <h2 id="camera-review-title">Captured Photo</h2>
+                              <p id="camera-review-meta" class="camera-review-meta">Rear camera | Photo</p>
+                            </div>
+
+                            <div class="camera-review-actions">
+                              <button id="camera-retake" class="secondary-button" type="button">Retake</button>
+                              <button id="camera-save-photo" class="primary-button" type="button">Save Photo</button>
+                            </div>
+                          </div>
+
+                          <div class="camera-review-canvas-shell">
+                            <div class="camera-review-canvas-hero">
+                              <canvas id="camera-editor-canvas" width="1280" height="720"></canvas>
+                            </div>
+                          </div>
+
+                          <div class="camera-filmstrip-block">
+                            <div class="section-heading compact">
+                              <div>
+                                <div class="eyebrow">Select shot</div>
+                                <h4 id="camera-filmstrip-title">Best frame</h4>
+                              </div>
+                            </div>
+                            <div id="camera-filmstrip" class="camera-filmstrip"></div>
+                          </div>
+                        </section>
+
+                        <aside class="camera-editor-panel">
+                          <div class="camera-editor-card">
+                            <div class="eyebrow">Details</div>
+                            <input id="camera-photo-name" class="input camera-name-input" type="text" placeholder="Captured Photo">
+                            <div class="camera-meta-pills">
+                              <span id="camera-selected-lens-pill" class="camera-meta-pill">Rear</span>
+                              <span id="camera-selected-mode-pill" class="camera-meta-pill">Photo</span>
+                              <span id="camera-selected-ratio-pill" class="camera-meta-pill">4:3</span>
+                            </div>
+                          </div>
+
+                          <div class="camera-editor-card">
+                            <div class="camera-editor-card-head">
+                              <div>
+                                <div class="eyebrow">Look</div>
+                                <h3>Presets</h3>
+                              </div>
+                              <button id="camera-reset-look" class="camera-text-button" type="button">Reset</button>
+                            </div>
+                            <div id="camera-presets" class="camera-preset-list"></div>
+                          </div>
+
+                          <div class="camera-editor-card">
+                            <div class="camera-editor-card-head">
+                              <div>
+                                <div class="eyebrow">Framing</div>
+                                <h3>Crop &amp; selfie</h3>
+                              </div>
+                            </div>
+                            <div id="camera-crop-ratios" class="camera-ratio-list"></div>
+                            <label class="camera-toggle">
+                              <span>
+                                <strong>Mirror selfie</strong>
+                                <small>Flip the final saved image horizontally.</small>
+                              </span>
+                              <input id="camera-mirror-toggle" type="checkbox">
+                            </label>
+                          </div>
+
+                          <div class="camera-editor-card camera-editor-sliders">
+                            <div class="eyebrow">Adjust</div>
+
+                            <label class="camera-slider-field" for="camera-brightness">
+                              <span>Brightness</span>
+                              <strong id="camera-brightness-value">0</strong>
+                            </label>
+                            <input id="camera-brightness" type="range" min="-30" max="30" step="1" value="0">
+
+                            <label class="camera-slider-field" for="camera-contrast">
+                              <span>Contrast</span>
+                              <strong id="camera-contrast-value">0</strong>
+                            </label>
+                            <input id="camera-contrast" type="range" min="-30" max="30" step="1" value="0">
+
+                            <label class="camera-slider-field" for="camera-saturation">
+                              <span>Saturation</span>
+                              <strong id="camera-saturation-value">0</strong>
+                            </label>
+                            <input id="camera-saturation" type="range" min="-50" max="50" step="1" value="0">
+
+                            <label class="camera-slider-field" for="camera-warmth">
+                              <span>Warmth</span>
+                              <strong id="camera-warmth-value">0</strong>
+                            </label>
+                            <input id="camera-warmth" type="range" min="-35" max="35" step="1" value="0">
+
+                            <label class="camera-slider-field" for="camera-fade">
+                              <span>Fade</span>
+                              <strong id="camera-fade-value">0</strong>
+                            </label>
+                            <input id="camera-fade" type="range" min="0" max="40" step="1" value="0">
+
+                            <label class="camera-slider-field" for="camera-vignette">
+                              <span>Vignette</span>
+                              <strong id="camera-vignette-value">0</strong>
+                            </label>
+                            <input id="camera-vignette" type="range" min="0" max="50" step="1" value="0">
+
+                            <label class="camera-slider-field" for="camera-grain">
+                              <span>Grain</span>
+                              <strong id="camera-grain-value">0</strong>
+                            </label>
+                            <input id="camera-grain" type="range" min="0" max="35" step="1" value="0">
+                          </div>
+
+                          <div id="camera-save-status" class="camera-save-status hidden"></div>
+                        </aside>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+
+                <section id="videocall-screen" class="app-screen hidden">
+                  <div id="videocall-app" class="videocall-app">
+                    <div id="videocall-auth" class="videocall-auth hidden">
+                      <div class="videocall-auth-card">
+                        <div class="eyebrow">Mail</div>
+                        <h3>Sign in required</h3>
+                        <p class="mail-section-subtitle">Video Call uses your Mail contacts. Open Mail and sign in, then come back here.</p>
+                        <button id="videocall-open-mail" type="button" class="primary-button">Open Mail</button>
+                      </div>
+                    </div>
+                    <div id="videocall-shell" class="videocall-shell hidden">
+                      <div class="videocall-stage">
+                        <header class="videocall-call-header">
+                          <div class="videocall-call-header-row">
+                            <h3 id="videocall-peer-title" class="videocall-peer-title">Video Call</h3>
+                            <span id="videocall-live-badge" class="videocall-live-badge hidden" aria-hidden="true">Live</span>
+                          </div>
+                          <p id="videocall-status" class="videocall-status-line"></p>
+                          <p id="videocall-look-hint" class="videocall-look-hint hidden" aria-live="polite"></p>
+                        </header>
+                        <div class="videocall-remote-area">
+                          <div class="videocall-remote-wrap">
+                            <img id="videocall-remote" class="videocall-remote" alt="" decoding="async" />
+                            <video id="videocall-remote-video" class="videocall-remote videocall-remote-video hidden" playsinline></video>
+                            <div id="videocall-remote-placeholder" class="videocall-remote-placeholder">Waiting for their camera…</div>
+                          </div>
+                          <div class="videocall-local-wrap">
+                            <img id="videocall-local" class="videocall-local" alt="" decoding="async" />
+                            <video id="videocall-local-video" class="videocall-local videocall-local-video hidden" playsinline muted></video>
+                            <button id="videocall-flip-camera" class="videocall-flip-btn hidden" type="button" aria-label="Switch to rear camera" title="Front / rear camera">
+                              <svg class="videocall-flip-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                                <path d="M7 16V4m0 0L3 8m4-4 4 4M17 8v12m0 0 4-4m-4 4-4-4" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round"/>
+                              </svg>
+                            </button>
+                          </div>
+                          <div id="videocall-banner" class="videocall-banner hidden">
+                            <div class="videocall-banner-copy">
+                              <strong id="videocall-banner-title">Incoming call</strong>
+                              <span id="videocall-banner-sub">Someone is calling you.</span>
+                            </div>
+                            <div class="videocall-banner-actions">
+                              <button id="videocall-accept" type="button" class="primary-button small-button">Accept</button>
+                              <button id="videocall-decline" type="button" class="secondary-button small-button danger-button">Decline</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <aside class="videocall-sidebar">
+                        <div class="videocall-connect-hero">
+                          <div class="videocall-connect-hero-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none"><path d="M7 10.5c0-1.1.9-2 2-2h8.5c.8 0 1.5.7 1.5 1.5v6c0 .8-.7 1.5-1.5 1.5H11l-3.2 2.4c-.5.4-1.2 0-1.2-.6V15" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/><circle cx="9" cy="10" r="1" fill="currentColor"/><circle cx="12.5" cy="10" r="1" fill="currentColor"/><circle cx="16" cy="10" r="1" fill="currentColor"/></svg>
+                          </div>
+                          <div class="videocall-connect-hero-text">
+                            <span class="eyebrow">Connect</span>
+                            <h3>Video Call</h3>
+                            <p class="videocall-connect-hero-desc">Pick someone from your Mail contacts. They need to be online on their tablet with the same address.</p>
+                          </div>
+                        </div>
+                        <div class="videocall-sidebar-tools">
+                          <input id="videocall-search" class="input videocall-search" type="search" placeholder="Search contacts…" autocomplete="off">
+                        </div>
+                        <div id="videocall-contact-list" class="videocall-contact-list"></div>
+                        <div class="videocall-callbar">
+                          <button id="videocall-start" type="button" class="primary-button" disabled>Call contact</button>
+                          <button id="videocall-cancel-ring" type="button" class="secondary-button hidden">Cancel</button>
+                          <button id="videocall-hangup" type="button" class="danger-button hidden">End call</button>
+                        </div>
+                      </aside>
+                    </div>
+                  </div>
+                </section>
+
+                <section id="paint-screen" class="app-screen hidden">
+                  <div class="paint-shell">
+                    <aside class="paint-tools">
+                      <div class="paint-panel-header">
+                        <div class="eyebrow">Studio tools</div>
+                        <h3>Canvas kit</h3>
+                      </div>
+                      <div id="paint-tools-list" class="paint-tool-list"></div>
+                      <div class="paint-control-group">
+                        <label for="paint-size" title="Brush size">
+                          <span class="paint-control-label" aria-hidden="true">
+                            <span class="paint-control-icon">
+                              <svg viewBox="0 0 24 24" fill="none"><path d="M4 18h16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M7 14.5 12 5l5 9.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            </span>
+                          </span>
+                          <span id="paint-size-value">8px</span>
+                        </label>
+                        <input id="paint-size" type="range" min="1" max="64" value="8" aria-label="Brush size">
+                      </div>
+                      <div class="paint-control-group">
+                        <label for="paint-opacity" title="Opacity">
+                          <span class="paint-control-label" aria-hidden="true">
+                            <span class="paint-control-icon">
+                              <svg viewBox="0 0 24 24" fill="none"><path d="M12 4c3.5 4.2 6 7.1 6 10a6 6 0 1 1-12 0c0-2.9 2.5-5.8 6-10Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+                            </span>
+                          </span>
+                          <span id="paint-opacity-value">100%</span>
+                        </label>
+                        <input id="paint-opacity" type="range" min="10" max="100" value="100" aria-label="Opacity">
+                      </div>
+                    </aside>
+
+                    <section class="paint-stage">
+                      <div class="paint-topbar">
+                        <div class="paint-title-block">
+                          <div class="eyebrow">Project</div>
+                          <input id="paint-name" class="paint-name-input" type="text" placeholder="Untitled Canvas">
+                        </div>
+                        <div class="paint-topbar-actions">
+                          <button id="paint-undo" class="paint-action" aria-label="Undo" title="Undo">
+                            <svg viewBox="0 0 24 24" fill="none"><path d="M9 7 4 12l5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M20 17a6 6 0 0 0-6-6H4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                          </button>
+                          <button id="paint-redo" class="paint-action" aria-label="Redo" title="Redo">
+                            <svg viewBox="0 0 24 24" fill="none"><path d="m15 7 5 5-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 17a6 6 0 0 1 6-6h10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                          </button>
+                          <button id="paint-new" class="paint-action" aria-label="New canvas" title="New canvas">
+                            <svg viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+                          </button>
+                          <button id="paint-save" class="paint-action" type="button" aria-label="Save to gallery" title="Save to gallery">
+                            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M17 21v-8H7v8M7 3v5h8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                          </button>
+                        </div>
+                      </div>
+
+                      <div class="paint-workspace">
+                        <div class="paint-canvas-stage">
+                          <div class="paint-canvas-hud">
+                            <span id="paint-status">Brush ready.</span>
+                            <span id="paint-coords">0, 0</span>
+                          </div>
+                          <div class="paint-canvas-wrap" id="paint-canvas-wrap">
+                            <canvas id="paint-canvas" width="1400" height="900"></canvas>
+                            <canvas id="paint-preview" width="1400" height="900"></canvas>
+                          </div>
+                        </div>
+                      </div>
+                    </section>
+
+                    <aside class="paint-sidebar">
+                      <div class="paint-color-card">
+                        <div class="section-heading compact">
+                          <div>
+                            <div class="eyebrow">Color</div>
+                          </div>
+                        </div>
+                        <label id="paint-color-picker" class="paint-color-picker" for="paint-color">
+                          <span class="paint-color-picker__swatch">
+                            <span class="paint-color-picker__swatch-fill" aria-hidden="true"></span>
+                            <input id="paint-color" class="color-input" type="color" value="#111827">
+                          </span>
+                          <span class="paint-color-picker__copy">
+                            <strong>Open color picker</strong>
+                            <small>Click the swatch to choose a different color.</small>
+                          </span>
+                        </label>
+                        <div id="paint-swatches" class="paint-swatches"></div>
+                      </div>
+
+                      <div class="paint-info-card">
+                        <div class="paint-stat-grid">
+                          <div class="paint-stat-tile-dark">
+                            <span>Saved</span>
+                            <strong id="paint-saved-count">0</strong>
+                          </div>
+                        </div>
+                        <p class="paint-help-copy">Use the save icon in the toolbar to store your work. You can also email art from the Mail app.</p>
+                        <button id="paint-open-gallery" class="secondary-button full" type="button">Open Gallery</button>
+                      </div>
+                    </aside>
+                  </div>
+                </section>
+
+                <section id="gallery-screen" class="app-screen hidden">
+                  <div class="gallery-shell">
+                    <section class="gallery-preview-panel">
+                      <div class="section-heading">
+                        <div>
+                          <div class="eyebrow">Tablet gallery</div>
+                          <h3>Saved media</h3>
+                        </div>
+                        <div id="gallery-count" class="gallery-count">0 saved</div>
+                      </div>
+
+                      <div class="gallery-category-tabs" role="tablist" aria-label="Gallery categories">
+                        <button type="button" class="gallery-category-tab active" data-gallery-category="all">All</button>
+                        <button type="button" class="gallery-category-tab" data-gallery-category="photos">Photos</button>
+                        <button type="button" class="gallery-category-tab" data-gallery-category="videos">Videos</button>
+                      </div>
+
+                      <div id="gallery-empty" class="gallery-empty">
+                        <strong>No items saved yet</strong>
+                        <p>Photos and videos from Camera, artwork from Paint, and mail attachments appear here.</p>
+                      </div>
+
+                      <div id="gallery-preview-card" class="gallery-preview-card hidden">
+                        <div class="gallery-preview-frame">
+                          <button type="button" id="gallery-fullscreen-open" class="gallery-preview-fullscreen-btn" aria-label="View fullscreen" title="Fullscreen">
+                            <svg class="gallery-fullscreen-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                              <path d="M9 4H4v5M15 4h5v5M15 20h5v-5M9 20H4v-5" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                          </button>
+                          <img id="gallery-preview-image" class="gallery-preview-image-el" alt="Gallery still preview">
+                          <video id="gallery-preview-video" class="gallery-preview-video-el hidden" controls playsinline preload="metadata"></video>
+                        </div>
+
+                          <div class="gallery-preview-meta">
+                            <div>
+                            <div class="eyebrow">Selected item</div>
+                            <h2 id="gallery-preview-name">Untitled Canvas</h2>
+                            <p id="gallery-preview-creator" class="gallery-preview-creator">Created by Unknown</p>
+                          </div>
+                          <div id="gallery-preview-date" class="gallery-preview-date">Saved today</div>
+                        </div>
+
+                        <div class="gallery-preview-actions">
+                          <button id="gallery-open-paint" class="secondary-button">Edit in Paint</button>
+                          <button id="gallery-mail" class="primary-button">Mail Artwork</button>
+                          <button id="gallery-delete" class="secondary-button danger-button">Delete</button>
+                        </div>
+                      </div>
+                    </section>
+
+                    <section class="gallery-grid-panel">
+                      <div class="section-heading">
+                        <div>
+                          <div class="eyebrow">Collection</div>
+                          <h3>Your recent saves</h3>
+                        </div>
+                      </div>
+                      <div id="gallery-grid" class="gallery-grid"></div>
+                    </section>
+
+                    <div id="gallery-fullscreen-modal" class="gallery-fullscreen-modal hidden" role="dialog" aria-modal="true" aria-label="Fullscreen gallery preview">
+                      <div id="gallery-fullscreen-backdrop" class="gallery-fullscreen-backdrop"></div>
+                      <button type="button" id="gallery-fullscreen-close" class="gallery-fullscreen-close" aria-label="Close fullscreen">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                      <div class="gallery-fullscreen-stage">
+                        <img id="gallery-fullscreen-image" class="gallery-fullscreen-media gallery-fullscreen-image-el hidden" alt="">
+                        <video id="gallery-fullscreen-video" class="gallery-fullscreen-media gallery-fullscreen-video-el hidden" controls playsinline preload="metadata"></video>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+
+                <section id="calendar-screen" class="app-screen hidden">
+                  <div class="calendar-shell">
+                    <aside class="calendar-sidebar">
+                      <div class="calendar-month-card">
+                        <div class="eyebrow">Overview</div>
+                        <h2 id="calendar-month-label">March 2026</h2>
+                        <p id="calendar-selected-copy">Select a day to review or add plans.</p>
+                      </div>
+                      <div class="calendar-agenda-card">
+                        <div class="section-heading compact">
+                          <div>
+                            <div class="eyebrow">Selected day</div>
+                            <h4 id="calendar-day-title">Today</h4>
+                          </div>
+                        </div>
+                        <div id="calendar-day-events" class="calendar-day-events"></div>
+                      </div>
+                    </aside>
+
+                    <section class="calendar-main">
+                      <div class="calendar-header">
+                        <button id="calendar-prev" class="icon-button" aria-label="Previous month">&#8592;</button>
+                        <div class="calendar-header-copy">
+                          <div class="eyebrow">Planner</div>
+                          <h3 id="calendar-header-label">Month view</h3>
+                        </div>
+                        <button id="calendar-next" class="icon-button" aria-label="Next month">&#8594;</button>
+                      </div>
+                      <div id="calendar-grid" class="calendar-grid"></div>
+                    </section>
+
+                    <aside class="calendar-editor">
+                      <div class="section-heading compact">
+                        <div>
+                          <div class="eyebrow">Entry</div>
+                          <h4 id="calendar-editor-title">New event</h4>
+                        </div>
+                      </div>
+                      <input id="event-title" class="input" type="text" placeholder="Event title">
+                      <div class="calendar-field-group calendar-field-group--date">
+                        <label class="calendar-field-label" for="event-date">Date</label>
+                        <input id="event-date" class="input calendar-native-input" type="date">
+                      </div>
+                      <div class="calendar-field-group calendar-field-group--time">
+                        <label class="calendar-field-label" for="event-start-trigger">Time</label>
+                        <input id="event-start" type="hidden">
+                        <input id="event-end" type="hidden">
+                        <div class="calendar-time-row">
+                          <div class="calendar-time-block">
+                            <span class="calendar-time-caption">Start</span>
+                            <div class="calendar-time-field">
+                              <button id="event-start-trigger" class="calendar-time-trigger" type="button" aria-haspopup="true" aria-expanded="false">
+                                <span id="event-start-display">Select time</span>
+                              </button>
+                              <div id="event-start-picker" class="calendar-time-picker hidden">
+                                <div class="calendar-time-picker-grid">
+                                  <label class="calendar-select-shell calendar-time-list-shell">
+                                    <select id="event-start-hour" class="select-input calendar-time-part-select" size="5" aria-label="Start hour"></select>
+                                  </label>
+                                  <label class="calendar-select-shell calendar-time-list-shell">
+                                    <select id="event-start-minute" class="select-input calendar-time-part-select" size="5" aria-label="Start minute"></select>
+                                  </label>
+                                  <div class="calendar-time-period-stack">
+                                    <label class="calendar-select-shell calendar-time-list-shell">
+                                      <select id="event-start-period" class="select-input calendar-time-period-select" size="2" aria-label="Start period"></select>
+                                    </label>
+                                    <button id="event-start-confirm" class="calendar-time-confirm" type="button">Confirm</button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <span class="calendar-time-separator" aria-hidden="true">-</span>
+                          <div class="calendar-time-block">
+                            <span class="calendar-time-caption">End</span>
+                            <div class="calendar-time-field">
+                              <button id="event-end-trigger" class="calendar-time-trigger" type="button" aria-haspopup="true" aria-expanded="false">
+                                <span id="event-end-display">Select time</span>
+                              </button>
+                              <div id="event-end-picker" class="calendar-time-picker hidden">
+                                <div class="calendar-time-picker-grid">
+                                  <label class="calendar-select-shell calendar-time-list-shell">
+                                    <select id="event-end-hour" class="select-input calendar-time-part-select" size="5" aria-label="End hour"></select>
+                                  </label>
+                                  <label class="calendar-select-shell calendar-time-list-shell">
+                                    <select id="event-end-minute" class="select-input calendar-time-part-select" size="5" aria-label="End minute"></select>
+                                  </label>
+                                  <div class="calendar-time-period-stack">
+                                    <label class="calendar-select-shell calendar-time-list-shell">
+                                      <select id="event-end-period" class="select-input calendar-time-period-select" size="2" aria-label="End period"></select>
+                                    </label>
+                                    <button id="event-end-confirm" class="calendar-time-confirm" type="button">Confirm</button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <label class="calendar-toggle">
+                        <input id="event-all-day" type="checkbox">
+                        <span>All-day event</span>
+                      </label>
+                      <input id="event-location" class="input" type="text" placeholder="Location">
+                      <input id="event-color" class="color-input slim" type="color" value="#4f46e5">
+                      <textarea id="event-notes" class="textarea compact-textarea" placeholder="Notes"></textarea>
+                      <div class="calendar-editor-actions">
+                        <button id="calendar-save" class="primary-button calendar-action-button">
+                          <svg viewBox="0 0 24 24" fill="none"><path d="M6 4h9l3 3v13H6z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 4v6h6V4M9 20v-6h6v6" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+                          <span>Save</span>
+                        </button>
+                        <button id="calendar-delete" class="secondary-button danger-button calendar-action-button">
+                          <svg viewBox="0 0 24 24" fill="none"><path d="M5 7h14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M9 7V5h6v2M8 7l.7 11a2 2 0 0 0 2 1.9h2.6a2 2 0 0 0 2-1.9L16 7" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+                          <span>Delete</span>
+                        </button>
+                      </div>
+                    </aside>
+                  </div>
+                </section>
+
+                <section id="Yap-screen" class="app-screen hidden">
+                  <div class="Yap-shell">
+                    <div id="Yap-auth" class="Yap-auth">
+                      <section class="Yap-auth-showcase" aria-label="Yap introduction">
+                        <div class="Yap-auth-headline">
+                          <span class="Yap-auth-kicker">City feed</span>
+                          <h3>Whats popular now.</h3>
+                          <p>The most popular Yaps will show below.</p>
+                        </div>
+                        <article id="Yap-auth-preview-card" class="Yap-auth-preview-card Yap-auth-preview-main" aria-live="polite">
+                          <div class="Yap-auth-preview-frame">
+                            <div class="Yap-auth-preview-head Yap-post-head">
+                              <div id="Yap-auth-preview-avatar" class="Yap-auth-preview-avatar Yap-post-avatar">YP</div>
+                              <div class="Yap-auth-preview-copy Yap-post-meta">
+                                <strong id="Yap-auth-preview-name" class="Yap-auth-preview-name">Yap preview</strong>
+                                <span id="Yap-auth-preview-meta" class="Yap-auth-preview-meta">@yap - Loading public posts</span>
+                              </div>
+                            </div>
+                            <div id="Yap-auth-preview-context" class="Yap-auth-preview-context Yap-post-wall-context hidden" aria-hidden="true"></div>
+                            <p id="Yap-auth-preview-message" class="Yap-auth-preview-message Yap-post-body">Loading a public Yap...</p>
+                            <div id="Yap-auth-preview-media" class="Yap-auth-preview-media Yap-post-media hidden" aria-hidden="true"></div>
+                            <div id="Yap-auth-preview-footer" class="Yap-auth-preview-footer Yap-post-footer hidden" aria-hidden="true">
+                              <div id="Yap-auth-preview-chips" class="Yap-post-chips"></div>
+                            </div>
+                            <div id="Yap-auth-preview-actions" class="Yap-auth-preview-actions Yap-post-actions Yap-post-actions-preview hidden" aria-hidden="true"></div>
+                          </div>
+                        </article>
+                      </section>
+                      <section class="Yap-auth-stage" aria-label="Yap account access">
+                        <div class="Yap-auth-card">
+                          <div class="Yap-auth-card-top">
+                            <div class="Yap-auth-card-copy">
+                              <span class="eyebrow">Access Yap</span>
+                              <h3>Sign in or create a Yap account</h3>
+                              <p>Log in using your Yap handle and password or create a new account to start yappin!</p>
+                            </div>
+                          </div>
+                          <div class="Yap-auth-panels">
+                            <div class="Yap-tabs" role="tablist" aria-label="Yap access modes">
+                              <button type="button" class="Yap-tab active" data-Yap-tab="login" role="tab" aria-selected="true">Log in</button>
+                              <button type="button" class="Yap-tab" data-Yap-tab="register" role="tab" aria-selected="false">Create account</button>
+                            </div>
+                            <div id="Yap-panel-login" class="Yap-tab-panel active" role="tabpanel">
+                              <div class="Yap-auth-panel-copy">
+                                <h4>Welcome back</h4>
+                                <p>What could possibly be Yapped about today?</p>
+                              </div>
+                              <div class="Yap-auth-field-group">
+                                <label class="Yap-field-label" for="Yap-login-user">Yap handle</label>
+                                <input id="Yap-login-user" class="input" type="text" placeholder="your_handle" autocomplete="off" autocapitalize="off" spellcheck="false">
+                              </div>
+                              <div class="Yap-auth-field-group">
+                                <label class="Yap-field-label" for="Yap-login-pass">Yap password</label>
+                                <input id="Yap-login-pass" class="input" type="password" placeholder="Password" autocomplete="off" autocapitalize="off" spellcheck="false">
+                              </div>
+                              <div class="Yap-auth-note">Don't forget your Yap and Mail passwords are seperate!</div>
+                              <label class="Yap-login-remember-label" for="Yap-login-remember">
+                                <input id="Yap-login-remember" type="checkbox" class="Yap-login-remember-input">
+                                <span>Remember me on this tablet</span>
+                              </label>
+                              <button id="Yap-login-btn" type="button" class="primary-button full">Start Yappin!</button>
+                              <button id="Yap-login-reset" type="button" class="secondary-button full">Reset password</button>
+                              <button id="Yap-login-forgot-username" type="button" class="secondary-button full">Forgot username</button>
+                            </div>
+                            <div id="Yap-panel-register" class="Yap-tab-panel" role="tabpanel" hidden aria-hidden="true">
+                              <div class="Yap-auth-panel-copy">
+                                <h4 id="Yap-register-stage-title">Verify your Mail inbox</h4>
+                                <p id="Yap-register-stage-copy">You must have a Mail account to create a Yap account. Enter your Mail address below to receive a create account message.</p>
+                              </div>
+                          <p class="Yap-mail-hint">To create an account enter your Mail address.</p>
+                              <div class="Yap-auth-field-group">
+                                <label class="Yap-field-label" for="Yap-reg-email">Tablet mail address</label>
+                                <input id="Yap-reg-email" class="input" type="text" placeholder="you@wlabs.city or username" autocomplete="email">
+                              </div>
+                              <button id="Yap-register-btn" type="button" class="primary-button full">Send Mail Request</button>
+                              <div id="Yap-register-progress" class="Yap-approval-card hidden">
+                                <strong>Approval email sent</strong>
+                                <p>We sent a Yap email to <span id="Yap-register-wait-email">your mailbox</span>. Open Mail and accept the invite to unlock account creation.</p>
+                                <div class="Yap-auth-action-row">
+                                  <button id="Yap-register-open-mail" type="button" class="secondary-button full">Open Mail</button>
+                                  <button id="Yap-register-resend" type="button" class="secondary-button full">Send again</button>
+                                </div>
+                              </div>
+                              <div id="Yap-register-approved" class="Yap-approval-card hidden">
+                                <strong>Mailbox approved</strong>
+                                <p><span id="Yap-register-approved-email">Your mailbox</span> is verified. Finish your Yap profile below.</p>
+                              </div>
+                              <div class="Yap-auth-field-group hidden" aria-hidden="true">
+                                <label class="Yap-field-label" for="Yap-reg-mail-pass">Mail password</label>
+                                <input id="Yap-reg-mail-pass" class="input" type="password" placeholder="Proves you own this inbox" autocomplete="new-password">
+                              </div>
+                              <div id="Yap-register-finish-fields" class="Yap-register-finish hidden">
+                              <div class="Yap-auth-field-grid">
+                                <div class="Yap-auth-field-group hidden" aria-hidden="true">
+                                  <label class="Yap-field-label" for="Yap-reg-user">Yap username</label>
+                                  <input id="Yap-reg-user" class="input" type="text" placeholder="public_handle" autocomplete="off">
+                                </div>
+                                <div class="Yap-auth-field-group">
+                                  <label class="Yap-field-label" for="Yap-approved-email">Verified mail address</label>
+                                  <input id="Yap-approved-email" class="input" type="text" readonly>
+                                </div>
+                              </div>
+                              <div class="Yap-auth-field-grid">
+                                <div class="Yap-auth-field-group">
+                                  <label class="Yap-field-label" for="Yap-reg-display">Display name</label>
+                                  <input id="Yap-reg-display" class="input" type="text" placeholder="How you appear on Yap">
+                                </div>
+                              </div>
+                              <div class="Yap-handle-preview">
+                                Your Yap username will be <strong id="Yap-reg-handle">@YourName</strong>
+                              </div>
+                              <div class="Yap-auth-field-group">
+                                <label class="Yap-field-label" for="Yap-reg-pass">Yap password</label>
+                                <input id="Yap-reg-pass" class="input" type="password" placeholder="At least 6 characters" autocomplete="new-password">
+                              </div>
+                              <button id="Yap-register-finish" type="button" class="primary-button full">Finish account</button>
+                              </div>
+                            </div>
+                            <div id="Yap-panel-reset" class="Yap-tab-panel" role="tabpanel" hidden aria-hidden="true">
+                              <div class="Yap-auth-panel-copy">
+                                <h4 id="Yap-reset-stage-title">Reset your Yap password</h4>
+                                <p id="Yap-reset-stage-copy">Enter your Yap username or linked mail address and we will send recovery instructions to your tablet Mail.</p>
+                              </div>
+                              <p class="Yap-mail-hint">Recovery stays inside your tablet Mail, so the request has to be approved on this device before Yap unlocks the new password screen.</p>
+                              <div id="Yap-reset-request-fields">
+                                <div class="Yap-auth-field-grid">
+                                  <div class="Yap-auth-field-group">
+                                    <label class="Yap-field-label" for="Yap-reset-user">Yap username</label>
+                                    <input id="Yap-reset-user" class="input" type="text" placeholder="@yourname" autocomplete="username">
+                                  </div>
+                                  <div class="Yap-auth-field-group">
+                                    <label class="Yap-field-label" for="Yap-reset-email">Linked mail address</label>
+                                    <input id="Yap-reset-email" class="input" type="email" placeholder="you@wlabs.city" autocomplete="email">
+                                  </div>
+                                </div>
+                                <button id="Yap-reset-request-btn" type="button" class="primary-button full">Send recovery email</button>
+                              </div>
+                              <div id="Yap-reset-progress" class="Yap-approval-card hidden">
+                                <strong>Recovery email sent</strong>
+                                <p>We sent a Yap recovery email to <span id="Yap-reset-wait-email">your mailbox</span>. Open Mail and accept it to unlock the password reset screen.</p>
+                                <div class="Yap-auth-action-row">
+                                  <button id="Yap-reset-open-mail" type="button" class="secondary-button full">Open Mail</button>
+                                  <button id="Yap-reset-resend" type="button" class="secondary-button full">Send again</button>
+                                </div>
+                              </div>
+                              <div id="Yap-reset-approved" class="Yap-approval-card hidden">
+                                <strong>Reset approved</strong>
+                                <p>Password reset access is unlocked for <span id="Yap-reset-approved-user">@yourname</span>. Choose a new password below.</p>
+                              </div>
+                              <div id="Yap-reset-finish-fields" class="Yap-register-finish hidden">
+                                <div class="Yap-auth-field-group">
+                                  <label class="Yap-field-label" for="Yap-reset-pass">New Yap password</label>
+                                  <input id="Yap-reset-pass" class="input" type="password" placeholder="At least 6 characters" autocomplete="new-password">
+                                </div>
+                                <button id="Yap-reset-submit" type="button" class="primary-button full">Update password</button>
+                              </div>
+                              <button id="Yap-reset-back" type="button" class="secondary-button full">Back to login</button>
+                            </div>
+                            <div id="Yap-panel-username" class="Yap-tab-panel" role="tabpanel" hidden aria-hidden="true">
+                              <div class="Yap-auth-panel-copy">
+                                <h4 id="Yap-username-stage-title">Forgot your Yap username?</h4>
+                                <p id="Yap-username-stage-copy">Enter the Mail address linked to your Yap account. We will send a message to your tablet Mail with your Yap handle.</p>
+                              </div>
+                              <p class="Yap-mail-hint">Use the same Mail address you verified when you created Yap. No approval tap is needed—just open the email and sign in with the handle it shows.</p>
+                              <div id="Yap-username-request-fields">
+                                <div class="Yap-auth-field-group">
+                                  <label class="Yap-field-label" for="Yap-username-email">Linked mail address</label>
+                                  <input id="Yap-username-email" class="input" type="email" placeholder="you@wlabs.city" autocomplete="email">
+                                </div>
+                                <button id="Yap-username-request-btn" type="button" class="primary-button full">Send username reminder</button>
+                              </div>
+                              <div id="Yap-username-progress" class="Yap-approval-card hidden">
+                                <strong>Reminder sent</strong>
+                                <p>Check tablet Mail at <span id="Yap-username-wait-email">your mailbox</span> for your Yap username.</p>
+                                <div class="Yap-auth-action-row">
+                                  <button id="Yap-username-open-mail" type="button" class="secondary-button full">Open Mail</button>
+                                  <button id="Yap-username-resend" type="button" class="secondary-button full">Send again</button>
+                                </div>
+                              </div>
+                              <button id="Yap-username-back" type="button" class="secondary-button full">Back to login</button>
+                            </div>
+                            <div id="Yap-auth-status" class="Yap-inline-status hidden" role="status"></div>
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+
+                    <div id="Yap-main" class="Yap-main hidden">
+                      <div class="Yap-dashboard">
+                        <aside class="Yap-sidebar">
+                          <button id="Yap-sidebar-open-wall" type="button" class="Yap-sidebar-card Yap-sidebar-profile Yap-sidebar-profile-button">
+                            <div id="Yap-self-cover" class="Yap-sidebar-profile-cover"></div>
+                            <div class="Yap-sidebar-profile-main">
+                              <div id="Yap-self-avatar" class="Yap-sidebar-avatar">Y</div>
+                              <div class="Yap-sidebar-profile-copy">
+                                <strong id="Yap-self-display">Yap User</strong>
+                                <span id="Yap-self-handle">@yourname</span>
+                              </div>
+                            </div>
+                            <p id="Yap-self-bio" class="Yap-sidebar-bio">To set your bio, go to your wall and select "edit wall"</p>
+                            <div class="Yap-sidebar-stats">
+                              <div class="Yap-sidebar-stat">
+                                <strong id="Yap-self-post-count">0</strong>
+                                <span>Your posts</span>
+                              </div>
+                              <div class="Yap-sidebar-stat">
+                                <strong id="Yap-self-score-count">0</strong>
+                                <span>Reactions</span>
+                              </div>
+                            </div>
+                          </button>
+
+                          <nav class="Yap-nav" aria-label="Yap sections">
+                            <button type="button" class="Yap-nav-btn Yap-nav-btn-icon active" data-Yap-view="feed">
+                              <span class="Yap-nav-icon Yap-nav-icon-home" aria-hidden="true"></span>
+                              <span class="Yap-nav-text">
+                                <span class="Yap-nav-label">For you</span>
+                                <small>Home timeline</small>
+                              </span>
+                            </button>
+                            <button type="button" class="Yap-nav-btn Yap-nav-btn-icon" data-Yap-view="search">
+                              <span class="Yap-nav-icon Yap-nav-icon-search" aria-hidden="true"></span>
+                              <span class="Yap-nav-text">
+                                <span class="Yap-nav-label">Explore</span>
+                                <small>Find people</small>
+                              </span>
+                            </button>
+                            <button type="button" class="Yap-nav-btn Yap-nav-btn-icon" data-Yap-view="mywall">
+                              <span class="Yap-nav-icon Yap-nav-icon-wall" aria-hidden="true"></span>
+                              <span class="Yap-nav-text">
+                                <span class="Yap-nav-label">My wall</span>
+                                <small>Your profile page</small>
+                              </span>
+                            </button>
+                          </nav>
+                        </aside>
+
+                        <section class="Yap-stage">
+                          <div id="Yap-view-feed" class="Yap-view active">
+                            <div class="Yap-view-shell Yap-feed-shell">
+                              <section class="Yap-surface-card Yap-home-feed-card">
+                                <div class="Yap-feed-header Yap-feed-header-modern">
+                                  <div class="Yap-feed-header-copy">
+                                    <span class="eyebrow Yap-eyebrow-gradient">Live feed</span>
+                                    <h3>What everyone’s saying</h3>
+                                    <p class="Yap-feed-subtitle">Check out posts from yappers across the city.</p>
+                                  </div>
+                                  <button id="Yap-refresh-feed" type="button" class="Yap-pill-btn Yap-pill-btn-outline">Refresh</button>
+                                </div>
+                                <div id="Yap-feed-list" class="Yap-feed-list Yap-feed-list-modern"></div>
+                              </section>
+                            </div>
+                          </div>
+
+                          <div id="Yap-view-search" class="Yap-view">
+                            <div class="Yap-view-shell">
+                              <div class="Yap-search-layout">
+                                <section class="Yap-surface-card Yap-discover-main">
+                                  <div class="Yap-card-head Yap-card-head-tight">
+                                    <div>
+                                      <span class="eyebrow Yap-eyebrow-gradient">Discover</span>
+                                      <h4>Search walls &amp; people</h4>
+                                    </div>
+                                  </div>
+                                  <label class="Yap-field-label" for="Yap-search-input">Name or @handle</label>
+                                  <div class="Yap-search-row Yap-search-row-modern">
+                                    <input id="Yap-search-input" class="input Yap-search-input" type="text" placeholder="Try a name or part of a handle…">
+                                    <button id="Yap-search-btn" type="button" class="Yap-pill-btn Yap-pill-btn-solid">Search</button>
+                                  </div>
+                                  <div id="Yap-search-results" class="Yap-search-results"></div>
+                                </section>
+                                <aside class="Yap-surface-card Yap-discover-aside">
+                                  <div class="Yap-card-head Yap-card-head-tight">
+                                    <div>
+                                      <span class="eyebrow Yap-eyebrow-gradient">Trending</span>
+                                      <h4>Popular right now</h4>
+                                    </div>
+                                  </div>
+                                  <div id="Yap-search-suggestions" class="Yap-people-list"></div>
+                                </aside>
+                              </div>
+                            </div>
+                          </div>
+                        </section>
+
+                        <aside class="Yap-rail Yap-rail-modern">
+                          <section class="Yap-surface-card Yap-rail-card">
+                            <div class="Yap-card-head Yap-card-head-tight">
+                              <div>
+                                <span class="eyebrow Yap-eyebrow-gradient">Biggest Yapper</span>
+                                <h4>Most Yaps</h4>
+                              </div>
+                            </div>
+                            <div id="Yap-biggest-yapper-root" class="Yap-rail-spotlight"></div>
+                          </section>
+
+                          <section class="Yap-surface-card Yap-rail-card">
+                            <div class="Yap-card-head Yap-card-head-tight">
+                              <div>
+                                <span class="eyebrow Yap-eyebrow-gradient">Most Famous</span>
+                                <h4>Most liked Yap</h4>
+                              </div>
+                            </div>
+                            <div id="Yap-most-famous-root" class="Yap-rail-famous"></div>
+                          </section>
+
+                          <section class="Yap-surface-card Yap-rail-card">
+                            <div class="Yap-card-head Yap-card-head-tight">
+                              <div>
+                                <span class="eyebrow Yap-eyebrow-gradient">For you</span>
+                                <h4>Suggested walls</h4>
+                              </div>
+                            </div>
+                            <div id="Yap-rail-people" class="Yap-people-list"></div>
+                          </section>
+
+                          <section class="Yap-surface-card Yap-rail-card">
+                            <div class="Yap-card-head Yap-card-head-inline">
+                              <div>
+                                <span class="eyebrow Yap-eyebrow-gradient">Around you</span>
+                                <h4>Nearest Yappers</h4>
+                              </div>
+                              <button type="button" class="Yap-pill-btn Yap-nav-trigger" data-Yap-view="search">See all</button>
+                            </div>
+                            <div id="Yap-rail-around-you" class="Yap-people-list"></div>
+                          </section>
+                        </aside>
+                      </div>
+                    </div>
+
+                    <div id="Yap-wall" class="Yap-wall hidden">
+                      <div id="Yap-wall-page-bg" class="Yap-wall-page-bg" aria-hidden="true"></div>
+                      <div class="Yap-wall-page-dim" aria-hidden="true"></div>
+                      <div class="Yap-wall-inner">
+                      <div id="Yap-wall-banner" class="Yap-wall-banner">
+                        <div class="Yap-wall-banner-bg"></div>
+                        <div class="Yap-wall-banner-inner">
+                          <div id="Yap-wall-avatar" class="Yap-wall-avatar">Y</div>
+                          <div class="Yap-wall-titles">
+                            <p id="Yap-wall-headline" class="Yap-wall-headline hidden"></p>
+                            <h2 id="Yap-wall-display">Display</h2>
+                            <p id="Yap-wall-handle" class="Yap-wall-handle">@handle</p>
+                            <p id="Yap-wall-bio" class="Yap-wall-bio"></p>
+                            <div class="Yap-wall-hero-stats">
+                              <div class="Yap-wall-hero-stat">
+                                <strong id="Yap-wall-hero-post-count">0</strong>
+                                <span>Posts</span>
+                              </div>
+                              <div class="Yap-wall-hero-stat">
+                                <strong id="Yap-wall-hero-score-count">0</strong>
+                                <span>Reactions</span>
+                              </div>
+                              <div class="Yap-wall-hero-stat">
+                                <strong id="Yap-wall-hero-media-count">0</strong>
+                                <span>Media</span>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="Yap-wall-banner-actions Yap-wall-banner-actions-toolbar-only">
+                            <button id="Yap-wall-edit-toggle" type="button" class="primary-button small-button hidden" tabindex="-1" aria-hidden="true">Edit wall</button>
+                            <button id="Yap-wall-logout" type="button" class="secondary-button small-button hidden" tabindex="-1" aria-hidden="true">Log out</button>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="Yap-wall-layout">
+                        <aside class="Yap-wall-column">
+                          <section id="Yap-wall-edit-card" class="Yap-surface-card Yap-wall-edit-card hidden">
+                            <div class="Yap-card-head">
+                              <div>
+                                <span class="eyebrow">Edit mode</span>
+                                <h4>Customize your wall</h4>
+                              </div>
+                              <button id="Yap-wall-edit-close" type="button" class="secondary-button small-button">Done</button>
+                            </div>
+                            <label class="Yap-field-label" for="Yap-me-layout">Wall layout</label>
+                            <select id="Yap-me-layout" class="input select-input">
+                              <option value="classic">Classic wall</option>
+                              <option value="spotlight">Spotlight banner</option>
+                              <option value="scrapbook">Scrapbook</option>
+                            </select>
+                            <label class="Yap-field-label" for="Yap-me-display">Display name</label>
+                            <input id="Yap-me-display" class="input" type="text">
+                            <label class="Yap-field-label" for="Yap-me-bio">Bio</label>
+                            <textarea id="Yap-me-bio" class="textarea compact-textarea" placeholder="Short line for your wall"></textarea>
+                            <label class="Yap-field-label" for="Yap-me-pic">Profile picture URL (https image)</label>
+                            <input id="Yap-me-pic" class="input" type="text" placeholder="https://">
+                            <label class="Yap-field-label" for="Yap-me-wallbg">Wall background URL (https image)</label>
+                            <input id="Yap-me-wallbg" class="input" type="text" placeholder="https://">
+                            <label class="Yap-field-label" for="Yap-me-accent">Accent color</label>
+                            <input id="Yap-me-accent" class="input" type="text" placeholder="#2584ff">
+                            <div class="Yap-privacy-block">
+                              <div class="Yap-card-head Yap-card-head-tight Yap-privacy-head">
+                                <div>
+                                  <span class="eyebrow">Privacy</span>
+                                  <h4>Who can post on your wall</h4>
+                                </div>
+                              </div>
+                              <p class="Yap-privacy-hint">Control guest posts and photos. You can always post on your own wall. Tap Save wall below to apply privacy together with your profile.</p>
+                              <label class="Yap-toggle-row">
+                                <input type="checkbox" id="Yap-privacy-friends-post" checked>
+                                <span>Allow friends to post on my wall</span>
+                              </label>
+                              <label class="Yap-toggle-row">
+                                <input type="checkbox" id="Yap-privacy-friends-media" checked>
+                                <span>Allow friends to post photos or videos</span>
+                              </label>
+                              <label class="Yap-toggle-row">
+                                <input type="checkbox" id="Yap-privacy-anyone-post">
+                                <span>Allow anyone to post on my wall</span>
+                              </label>
+                              <label class="Yap-toggle-row">
+                                <input type="checkbox" id="Yap-privacy-anyone-media">
+                                <span>Allow anyone to post photos or videos</span>
+                              </label>
+                            </div>
+                            <button id="Yap-me-save" type="button" class="primary-button full">Save wall</button>
+                            <div id="Yap-me-status" class="Yap-inline-status hidden" role="status"></div>
+                          </section>
+
+                          <section class="Yap-surface-card">
+                            <div class="Yap-card-head">
+                              <div>
+                                <span class="eyebrow">About</span>
+                                <h4>Profile details</h4>
+                              </div>
+                            </div>
+                            <div class="Yap-wall-profile-summary">
+                              <div id="Yap-wall-summary-avatar" class="Yap-wall-profile-summary-avatar">Y</div>
+                              <div class="Yap-wall-profile-summary-copy">
+                                <strong id="Yap-wall-summary-display">Display</strong>
+                                <span id="Yap-wall-summary-handle">@handle</span>
+                              </div>
+                            </div>
+                            <p id="Yap-wall-about" class="Yap-wall-about">This wall has not added a bio yet.</p>
+                            <div class="Yap-sidebar-stats Yap-wall-stats">
+                              <div class="Yap-sidebar-stat">
+                                <strong id="Yap-wall-post-count">0</strong>
+                                <span>Posts</span>
+                              </div>
+                              <div class="Yap-sidebar-stat">
+                                <strong id="Yap-wall-score-count">0</strong>
+                                <span>Reactions</span>
+                              </div>
+                              <div class="Yap-sidebar-stat">
+                                <strong id="Yap-wall-media-count">0</strong>
+                                <span>Media posts</span>
+                              </div>
+                            </div>
+                          </section>
+
+                          <section id="Yap-wall-friend-card" class="Yap-surface-card Yap-wall-friend-card hidden" aria-live="polite">
+                            <div class="Yap-card-head Yap-card-head-tight">
+                              <div>
+                                <span class="eyebrow">Social</span>
+                                <h4>Connect</h4>
+                              </div>
+                            </div>
+                            <div id="Yap-wall-friend-incoming-actions" class="Yap-wall-friend-incoming-actions hidden">
+                              <p class="Yap-wall-friend-incoming-copy">This person sent you a friend request.</p>
+                              <div class="Yap-wall-friend-incoming-buttons">
+                                <button type="button" id="Yap-wall-friend-accept" class="Yap-friend-incoming-btn Yap-friend-incoming-btn--accept">Accept</button>
+                                <button type="button" id="Yap-wall-friend-decline" class="Yap-friend-incoming-btn Yap-friend-incoming-btn--decline">Decline</button>
+                              </div>
+                            </div>
+                            <button type="button" id="Yap-wall-friend-primary" class="Yap-friend-action-btn Yap-friend-action-btn--add hidden" aria-label="Add friend">
+                              <span class="Yap-friend-action-btn__icon" aria-hidden="true">
+                                <svg class="Yap-friend-action-btn__svg Yap-friend-action-btn__svg--plus-user" viewBox="0 0 24 24" fill="none"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/><circle cx="9" cy="7" r="4" stroke="currentColor" stroke-width="1.75"/><path d="M19 8v6M22 11h-6" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/></svg>
+                                <svg class="Yap-friend-action-btn__svg Yap-friend-action-btn__svg--users hidden" viewBox="0 0 24 24" fill="none"><path d="M17 21v-2a4 4 0 0 0-3-3.87M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8Zm8 0a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm-8 4a6 6 0 0 0-6 6" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/></svg>
+                              </span>
+                              <span class="Yap-friend-action-btn__labels">
+                                <span class="Yap-friend-action-btn__label Yap-friend-action-btn__label--default">Add friend</span>
+                                <span class="Yap-friend-action-btn__label Yap-friend-action-btn__label--hover">Remove request</span>
+                              </span>
+                            </button>
+                            <button type="button" id="Yap-wall-friend-message" class="Yap-wall-friend-message-btn hidden" aria-label="Open messages with this person">
+                              Message
+                            </button>
+                          </section>
+
+                          <button id="Yap-wall-edit-below" type="button" class="Yap-wall-edit-below hidden">Edit wall</button>
+                        </aside>
+
+                        <section class="Yap-wall-stream">
+                          <section id="Yap-wall-compose-card" class="Yap-surface-card Yap-wall-compose-card hidden">
+                            <div id="Yap-compose-collapsed" class="Yap-compose-collapsed">
+                              <div class="Yap-compose-collapsed-head">
+                                <span id="Yap-compose-eyebrow-collapsed" class="eyebrow">Post on your wall</span>
+                                <button id="Yap-compose-expand" type="button" class="Yap-compose-plus" aria-expanded="false" aria-label="Expand composer">+</button>
+                              </div>
+                              <p id="Yap-compose-collapsed-teaser" class="Yap-compose-collapsed-teaser">Share an update…</p>
+                            </div>
+                            <div id="Yap-compose-expanded" class="Yap-compose-expanded hidden">
+                              <div class="Yap-card-head Yap-compose-expanded-head">
+                                <div>
+                                  <span id="Yap-compose-eyebrow-expanded" class="eyebrow">New post</span>
+                                  <h4 id="Yap-compose-title-expanded">Share something new</h4>
+                                  <p id="Yap-compose-cross-wall-hint" class="Yap-compose-cross-wall-hint hidden" role="note"></p>
+                                </div>
+                                <button id="Yap-compose-collapse" type="button" class="Yap-compose-collapse" aria-label="Collapse composer">−</button>
+                              </div>
+                              <label class="Yap-field-label Yap-sr-only" for="Yap-compose-body">Post body</label>
+                              <textarea id="Yap-compose-body" class="textarea Yap-compose-body-input" placeholder="What is happening?" rows="4"></textarea>
+                              <div id="Yap-compose-media-actions" class="Yap-compose-media-actions" role="toolbar" aria-label="Post attachments">
+                                <button id="Yap-compose-emoji-btn" type="button" class="Yap-compose-chip-btn" title="Insert emoji">Emoji</button>
+                                <button id="Yap-compose-link-btn" type="button" class="Yap-compose-chip-btn" title="Attach image or video URL">Link media</button>
+                                <button id="Yap-compose-gallery-btn" type="button" class="Yap-compose-chip-btn" title="Choose from tablet gallery">Gallery</button>
+                              </div>
+                              <div id="Yap-compose-emoji-panel" class="Yap-compose-emoji-panel hidden" aria-label="Emoji picker"></div>
+                              <p id="Yap-compose-media-locked-hint" class="Yap-compose-media-locked-hint hidden">This wall only allows text posts from you.</p>
+                              <div id="Yap-compose-url-row" class="Yap-compose-url-row hidden">
+                                <input id="Yap-compose-url" class="input" type="text" placeholder="https:// image or video" autocomplete="off">
+                              </div>
+                              <div id="Yap-compose-attachments" class="Yap-compose-attachments hidden">
+                                <div class="Yap-compose-attachments-head">
+                                  <span id="Yap-compose-attachments-label" class="Yap-compose-attachments-label">No media selected</span>
+                                  <button id="Yap-compose-attachments-clear" type="button" class="Yap-compose-attachments-clear">Clear</button>
+                                </div>
+                                <div id="Yap-compose-media-preview" class="Yap-compose-media-preview"></div>
+                              </div>
+                              <select id="Yap-gallery-pick" class="hidden" aria-hidden="true" tabindex="-1" multiple>
+                                <option value="">No gallery attachment</option>
+                              </select>
+                              <button id="Yap-compose-submit" type="button" class="primary-button full">Publish post</button>
+                              <div id="Yap-compose-status" class="Yap-inline-status hidden" role="status"></div>
+                            </div>
+                          </section>
+
+                          <div class="Yap-wall-stream-tabs" role="tablist" aria-label="Wall sections">
+                            <button type="button" id="Yap-wall-tab-posts" class="Yap-wall-stream-tab Yap-wall-stream-tab--active" role="tab" aria-selected="true" data-Yap-wall-tab="posts">Posts</button>
+                            <button type="button" id="Yap-wall-tab-friends" class="Yap-wall-stream-tab" role="tab" aria-selected="false" data-Yap-wall-tab="friends">
+                              <span class="Yap-wall-stream-tab-label">Friends</span>
+                              <span id="Yap-wall-tab-friends-count" class="Yap-wall-stream-tab-badge Yap-wall-stream-tab-badge--count hidden">0</span>
+                              <span id="Yap-wall-tab-friends-notify" class="Yap-wall-stream-tab-notify hidden" aria-hidden="true"></span>
+                            </button>
+                          </div>
+                          <div id="Yap-wall-panel-posts" class="Yap-wall-tab-panel" role="tabpanel">
+                            <div class="Yap-feed-header Yap-wall-feed-header">
+                              <div>
+                                <span class="eyebrow">Timeline</span>
+                                <h3>Wall activity</h3>
+                              </div>
+                            </div>
+                            <div id="Yap-wall-posts" class="Yap-feed-list Yap-wall-posts"></div>
+                          </div>
+                          <div id="Yap-wall-panel-friends" class="Yap-wall-tab-panel Yap-wall-tab-panel--friends hidden" role="tabpanel">
+                            <div id="Yap-wall-incoming-requests" class="Yap-wall-incoming-requests hidden">
+                              <div class="Yap-feed-header Yap-wall-feed-header Yap-wall-incoming-requests-head">
+                                <div>
+                                  <span class="eyebrow">Inbox</span>
+                                  <h3>Friend requests</h3>
+                                </div>
+                              </div>
+                              <div id="Yap-wall-incoming-requests-list" class="Yap-friend-requests-list"></div>
+                            </div>
+                            <div class="Yap-feed-header Yap-wall-feed-header Yap-wall-friends-header">
+                              <div>
+                                <span class="eyebrow">Network</span>
+                                <h3>Friends</h3>
+                              </div>
+                            </div>
+                            <p id="Yap-wall-friends-empty" class="Yap-wall-friends-empty hidden">No friends yet—send requests from other walls to grow your list.</p>
+                            <div id="Yap-wall-friends-list" class="Yap-wall-friends-list"></div>
+                          </div>
+                        </section>
+
+                        <aside class="Yap-wall-column">
+                          <section class="Yap-surface-card">
+                            <div class="Yap-card-head">
+                              <div>
+                                <span class="eyebrow">Keep browsing</span>
+                                <h4>Other active walls</h4>
+                              </div>
+                            </div>
+                            <div id="Yap-wall-people" class="Yap-people-list"></div>
+                          </section>
+                        </aside>
+                      </div>
+                      </div>
+                    </div>
+                    <div id="Yap-messenger-dock" class="Yap-messenger-dock hidden" aria-live="polite">
+                      <button type="button" id="Yap-messenger-fab" class="Yap-messenger-fab" aria-label="Open Yap messages" aria-expanded="false">
+                        <svg class="Yap-messenger-fab-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                          <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <span id="Yap-messenger-fab-badge" class="Yap-messenger-fab-badge hidden" aria-hidden="true">0</span>
+                      </button>
+                      <div id="Yap-messenger-panel" class="Yap-messenger-panel hidden" role="dialog" aria-modal="true" aria-labelledby="Yap-messenger-panel-title">
+                        <div id="Yap-messenger-view-list" class="Yap-messenger-view">
+                          <div class="Yap-messenger-panel-head">
+                            <div>
+                              <span class="eyebrow">Friends</span>
+                              <h4 id="Yap-messenger-panel-title">Messages</h4>
+                            </div>
+                            <button type="button" id="Yap-messenger-close" class="Yap-messenger-icon-btn" aria-label="Close messages">×</button>
+                          </div>
+                          <div id="Yap-messenger-friends-list" class="Yap-messenger-friends-list"></div>
+                          <p id="Yap-messenger-list-empty" class="Yap-messenger-list-empty hidden">Add friends from walls to start chatting.</p>
+                        </div>
+                        <div id="Yap-messenger-view-thread" class="Yap-messenger-view Yap-messenger-view-thread hidden">
+                          <div class="Yap-messenger-thread-head">
+                            <button type="button" id="Yap-messenger-thread-back" class="Yap-messenger-icon-btn Yap-messenger-back" aria-label="Back to conversations">‹</button>
+                            <div class="Yap-messenger-thread-peer">
+                              <div id="Yap-messenger-thread-avatar" class="Yap-messenger-thread-avatar">?</div>
+                              <div>
+                                <strong id="Yap-messenger-thread-name">Friend</strong>
+                                <span id="Yap-messenger-thread-handle" class="Yap-messenger-thread-handle">@friend</span>
+                              </div>
+                            </div>
+                          </div>
+                          <div id="Yap-messenger-thread-scroll" class="Yap-messenger-thread-scroll"></div>
+                          <div class="Yap-messenger-thread-compose">
+                            <div id="Yap-messenger-attach-strip" class="Yap-messenger-attach-strip hidden" aria-live="polite">
+                              <span id="Yap-messenger-attach-label" class="Yap-messenger-attach-label"></span>
+                              <button type="button" id="Yap-messenger-attach-clear" class="Yap-messenger-attach-clear" aria-label="Remove attachment">×</button>
+                            </div>
+                            <label class="Yap-sr-only" for="Yap-messenger-input">Message</label>
+                            <textarea id="Yap-messenger-input" class="Yap-messenger-input textarea" rows="2" placeholder="Write a message…" maxlength="2000"></textarea>
+                            <div class="Yap-messenger-compose-footer">
+                              <button type="button" id="Yap-messenger-gallery-btn" class="secondary-button Yap-messenger-gallery-btn">Gallery</button>
+                              <button type="button" id="Yap-messenger-send" class="primary-button Yap-messenger-send">Send</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div id="Yap-gallery-modal" class="mail-modal Yap-gallery-modal hidden" role="dialog" aria-modal="true" aria-labelledby="Yap-gallery-modal-title">
+                      <div class="mail-modal-card Yap-gallery-modal-card">
+                        <div class="Yap-gallery-modal-head">
+                          <div>
+                            <h4 id="Yap-gallery-modal-title">Tablet gallery</h4>
+                            <p id="Yap-gallery-modal-sub" class="Yap-gallery-modal-sub">Highlight up to 4 photos, or 1 video, then confirm.</p>
+                          </div>
+                          <button id="Yap-gallery-modal-close" type="button" class="secondary-button small-button">Close</button>
+                        </div>
+                        <div id="Yap-gallery-picker-grid" class="Yap-gallery-picker-grid"></div>
+                        <div class="Yap-gallery-modal-actions">
+                          <span id="Yap-gallery-modal-selection-status" class="Yap-gallery-modal-selection-status">Select up to 4 photos or 1 video</span>
+                          <div class="Yap-gallery-modal-actions-row">
+                            <button id="Yap-gallery-modal-clear" type="button" class="secondary-button small-button">Clear</button>
+                            <button id="Yap-gallery-modal-apply" type="button" class="primary-button">Add to post</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div id="Yap-post-media-lightbox" class="mail-modal Yap-post-media-lightbox hidden" role="dialog" aria-modal="true" aria-label="Post photo" aria-hidden="true">
+                      <button type="button" id="Yap-post-media-lightbox-close" class="Yap-post-media-lightbox-close secondary-button small-button">Close</button>
+                      <div class="Yap-post-media-lightbox-inner">
+                        <img id="Yap-post-media-lightbox-img" alt="">
+                      </div>
+                    </div>
+                    <div id="Yap-delete-post-modal" class="mail-modal Yap-delete-post-modal hidden" role="dialog" aria-modal="true" aria-labelledby="Yap-delete-post-title" aria-hidden="true">
+                      <div class="mail-modal-card Yap-delete-post-modal-card">
+                        <h4 id="Yap-delete-post-title">Delete this post?</h4>
+                        <p id="Yap-delete-post-copy" class="Yap-delete-post-copy">This cannot be undone. Comments and reactions will be removed.</p>
+                        <div class="Yap-delete-post-actions">
+                          <button type="button" id="Yap-delete-post-cancel" class="secondary-button small-button">Cancel</button>
+                          <button type="button" id="Yap-delete-post-confirm" class="danger-button small-button">Delete</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+
+                <section id="store-screen" class="app-screen hidden">
+                  <div class="store-shell">
+                    <div class="store-toolbar">
+                      <input id="store-search" class="input" type="text" placeholder="Search apps...">
+                      <div id="store-status" class="settings-status hidden"></div>
+                    </div>
+                    <div id="store-grid" class="store-grid"></div>
+                  </div>
+                </section>
+
+                <section id="external-screen" class="app-screen hidden">
+                  <button id="external-fullscreen-back" class="external-fullscreen-back hidden" aria-label="Back">&#8592;</button>
+                  <button id="external-fullscreen-minimize" class="external-fullscreen-minimize hidden" type="button" aria-label="Minimize app" title="Minimize app">&#8722;</button>
+                  <div class="external-shell">
+                    <div class="external-frame-shell">
+                      <iframe id="external-frame" class="external-frame" title="External tablet app"></iframe>
+                    </div>
+                  </div>
+                </section>
+
+                <section id="service-screen" class="app-screen hidden">
+                  <div class="service-shell">
+                    <div class="service-card">
+                      <div class="service-badge">&#9992;</div>
+                      <div class="eyebrow">No service</div>
+                      <h2 id="service-title">LTE services are unavailable</h2>
+                      <p id="service-copy">Airplane mode is enabled, so this app cannot connect right now. Turn it off in Settings to restore service.</p>
+                      <div class="service-actions">
+                        <button id="service-open-settings" class="primary-button" type="button">Open Settings</button>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+
+                <section id="settings-screen" class="app-screen hidden">
+                  <div class="settings-shell">
+                    <header class="settings-page-header">
+                      <h2 class="settings-page-title">Settings</h2>
+                      <p class="settings-page-lead">Profile, display, alerts, and apps for this tablet.</p>
+                    </header>
+                    <div class="settings-body">
+                      <div class="settings-col settings-col-primary">
+                        <article class="settings-card settings-card-profile">
+                          <div class="eyebrow">Tablet account</div>
+                          <h3>Profile</h3>
+                          <div class="settings-profile-preview">
+                            <div id="settings-profile-avatar" class="settings-profile-avatar">WL</div>
+                            <div class="settings-profile-copy">
+                              <strong id="settings-profile-name">Tablet User</strong>
+                              <span id="settings-profile-email">Link a mailbox to personalize this tablet.</span>
+                            </div>
+                          </div>
+                          <div class="settings-fields">
+                            <label for="settings-nickname">Personal nickname</label>
+                            <input id="settings-nickname" class="input" type="text" placeholder="How your tablet should greet you">
+                            <label for="settings-profile-picture">Profile picture URL</label>
+                            <input id="settings-profile-picture" class="input" type="text" placeholder="https://image-or-gif-url">
+                            <label for="settings-background-url">Tablet background URL</label>
+                            <input id="settings-background-url" class="input" type="text" placeholder="https://image-or-gif-url">
+                            <label for="settings-theme">Appearance</label>
+                            <select id="settings-theme" class="input select-input">
+                              <option value="dark">Dark mode</option>
+                              <option value="light">Light mode</option>
+                            </select>
+                            <label class="settings-toggle settings-toggle--standalone" for="settings-airplane-mode">
+                              <span>
+                                <strong>Airplane mode</strong>
+                                <small>Disables LTE; networked apps show offline until turned off.</small>
+                              </span>
+                              <input id="settings-airplane-mode" type="checkbox">
+                            </label>
+                          </div>
+                          <div class="settings-card-footer">
+                            <button id="settings-save-profile" class="primary-button" type="button">Save profile</button>
+                            <div id="settings-profile-status" class="settings-status hidden"></div>
+                          </div>
+                        </article>
+
+                        <article class="settings-card settings-card-security">
+                          <div class="eyebrow">Unlock</div>
+                          <h3>Tablet security</h3>
+                          <p id="settings-tablet-security-copy" class="settings-section-copy">Turn Quick unlock on for a single unlock button, or leave it off to require a PIN whenever you open the tablet.</p>
+                          <label class="settings-toggle settings-toggle--standalone" for="settings-tablet-require-pin">
+                            <span>
+                              <strong id="settings-tablet-security-mode">Quick unlock</strong>
+                              <small id="settings-tablet-security-summary">Off. This tablet requires a 4 to 6 digit PIN every time it is opened.</small>
+                            </span>
+                            <input id="settings-tablet-require-pin" type="checkbox">
+                          </label>
+                          <div id="settings-tablet-pin-group" class="settings-tablet-pin-group">
+                            <div id="settings-tablet-pin-display" class="tablet-pin-display">Choose a PIN</div>
+                            <div class="tablet-pin-pad settings-tablet-pin-pad" data-pin-target="settings-security">
+                              <button class="tablet-pin-key" type="button" data-pin-target="settings-security" data-pin-value="1">1</button>
+                              <button class="tablet-pin-key" type="button" data-pin-target="settings-security" data-pin-value="2">2</button>
+                              <button class="tablet-pin-key" type="button" data-pin-target="settings-security" data-pin-value="3">3</button>
+                              <button class="tablet-pin-key" type="button" data-pin-target="settings-security" data-pin-value="4">4</button>
+                              <button class="tablet-pin-key" type="button" data-pin-target="settings-security" data-pin-value="5">5</button>
+                              <button class="tablet-pin-key" type="button" data-pin-target="settings-security" data-pin-value="6">6</button>
+                              <button class="tablet-pin-key" type="button" data-pin-target="settings-security" data-pin-value="7">7</button>
+                              <button class="tablet-pin-key" type="button" data-pin-target="settings-security" data-pin-value="8">8</button>
+                              <button class="tablet-pin-key" type="button" data-pin-target="settings-security" data-pin-value="9">9</button>
+                              <button class="tablet-pin-key tablet-pin-key-action" type="button" data-pin-target="settings-security" data-pin-action="clear">Clear</button>
+                              <button class="tablet-pin-key" type="button" data-pin-target="settings-security" data-pin-value="0">0</button>
+                              <button class="tablet-pin-key tablet-pin-key-action" type="button" data-pin-target="settings-security" data-pin-action="backspace">Delete</button>
+                            </div>
+                            <p id="settings-tablet-pin-hint" class="settings-section-copy">Enter a 4 to 6 digit PIN to protect this tablet.</p>
+                          </div>
+                          <div class="settings-card-footer">
+                            <button id="settings-save-tablet-security" class="primary-button" type="button">Save security</button>
+                            <div id="settings-tablet-security-status" class="settings-status hidden"></div>
+                          </div>
+                        </article>
+
+                        <article class="settings-card settings-card-notifications">
+                          <div class="eyebrow">Alerts</div>
+                          <h3>Notifications</h3>
+                          <p class="settings-section-copy settings-section-copy--tight">Control which apps can show toasts and appear in the notification center. Airplane mode still blocks everything.</p>
+
+                          <section class="settings-subsection" aria-labelledby="settings-notify-apps-heading">
+                            <h4 id="settings-notify-apps-heading" class="settings-subsection-heading">Apps</h4>
+                            <div class="settings-toggle-group">
+                              <label class="settings-toggle" for="settings-notify-mail">
+                                <span><strong>Mail</strong><small>New messages and system mail</small></span>
+                                <input id="settings-notify-mail" type="checkbox" checked>
+                              </label>
+                              <label class="settings-toggle" for="settings-notify-contacts">
+                                <span><strong>Contacts</strong><small>Shared contact requests</small></span>
+                                <input id="settings-notify-contacts" type="checkbox" checked>
+                              </label>
+                              <label class="settings-toggle" for="settings-notify-videocall">
+                                <span><strong>Video Call</strong><small>Incoming calls and ring prompts</small></span>
+                                <input id="settings-notify-videocall" type="checkbox" checked>
+                              </label>
+                              <label class="settings-toggle" for="settings-notify-calendar">
+                                <span><strong>Calendar</strong><small>Reminders from the tablet calendar</small></span>
+                                <input id="settings-notify-calendar" type="checkbox" checked>
+                              </label>
+                            </div>
+                          </section>
+
+                          <section class="settings-subsection" aria-labelledby="settings-notify-yap-heading">
+                            <h4 id="settings-notify-yap-heading" class="settings-subsection-heading">Yap</h4>
+                            <div class="settings-toggle-group">
+                              <label class="settings-toggle" for="settings-notify-yap-wall-friend">
+                                <span><strong>Friends post on my wall</strong></span>
+                                <input id="settings-notify-yap-wall-friend" type="checkbox" checked>
+                              </label>
+                              <label class="settings-toggle" for="settings-notify-yap-wall-other">
+                                <span><strong>Non-friends post on my wall</strong></span>
+                                <input id="settings-notify-yap-wall-other" type="checkbox" checked>
+                              </label>
+                              <label class="settings-toggle" for="settings-notify-yap-friend-posts">
+                                <span><strong>Friends share new Yaps</strong></span>
+                                <input id="settings-notify-yap-friend-posts" type="checkbox" checked>
+                              </label>
+                              <label class="settings-toggle" for="settings-notify-yap-any-post">
+                                <span><strong>Anyone posts (global feed)</strong></span>
+                                <input id="settings-notify-yap-any-post" type="checkbox" checked>
+                              </label>
+                            </div>
+                          </section>
+
+                          <section class="settings-subsection" aria-labelledby="settings-notify-other-heading">
+                            <h4 id="settings-notify-other-heading" class="settings-subsection-heading">Other</h4>
+                            <div class="settings-toggle-group">
+                              <label class="settings-toggle" for="settings-notify-external">
+                                <span><strong>Other apps &amp; scripts</strong><small>Exports and integrations</small></span>
+                                <input id="settings-notify-external" type="checkbox" checked>
+                              </label>
+                            </div>
+                          </section>
+
+                          <div class="settings-card-footer">
+                            <button id="settings-save-notifications" class="primary-button" type="button">Save notifications</button>
+                            <div id="settings-notifications-status" class="settings-status hidden"></div>
+                          </div>
+                        </article>
+                      </div>
+
+                      <div class="settings-col settings-col-secondary">
+                        <article class="settings-card settings-card-controls">
+                          <div class="eyebrow">Display &amp; sound</div>
+                          <h3>Device</h3>
+                          <div class="settings-fields">
+                            <label for="settings-brightness">Brightness</label>
+                            <input id="settings-brightness" class="settings-range" type="range" min="25" max="100" value="78">
+                            <label for="settings-volume">Volume</label>
+                            <input id="settings-volume" class="settings-range" type="range" min="0" max="100" value="62">
+                            <label for="settings-home-theme">Home theme</label>
+                            <select id="settings-home-theme" class="input select-input">
+                              <option value="ocean">Ocean Glass</option>
+                              <option value="sunrise">Sunrise Glow</option>
+                              <option value="forest">Forest Mist</option>
+                              <option value="midnight">Midnight Neon</option>
+                            </select>
+                            <label for="settings-notification-sound">Notification sound</label>
+                            <div class="settings-inline-field">
+                              <select id="settings-notification-sound" class="input select-input">
+                                <option value="chime">Classic Chime</option>
+                                <option value="crystal">Crystal Drop</option>
+                                <option value="pulse">Soft Pulse</option>
+                                <option value="digital">Digital Ping</option>
+                                <option value="none">Silent</option>
+                              </select>
+                              <button id="settings-preview-sound" class="secondary-button small-button" type="button">Preview</button>
+                            </div>
+                          </div>
+                        </article>
+
+                        <article class="settings-card settings-card-library">
+                          <div class="eyebrow">Library</div>
+                          <h3>Installed apps</h3>
+                          <div id="settings-app-list" class="settings-app-list"></div>
+                        </article>
+
+                        <article class="settings-card settings-card-danger settings-card-delete">
+                          <div class="eyebrow">Danger zone</div>
+                          <h3>Delete account</h3>
+                          <p class="settings-danger-copy">Wipes this tablet and all saved data on the server for your character.</p>
+                          <button id="settings-wipe-tablet" class="secondary-button danger-button" type="button">Delete account</button>
+                          <div id="settings-delete-status" class="settings-status hidden"></div>
+                        </article>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+              </div>
+            </div>
+          </section>
+
+          <div id="settings-wipe-modal" class="mail-modal hidden">
+            <div class="mail-modal-card settings-delete-modal-card">
+              <div class="section-heading">
+                <div>
+                  <div class="eyebrow">Final warning</div>
+                  <h3>Delete this account?</h3>
+                </div>
+              </div>
+              <p class="settings-danger-copy">Accepting will wipe this entire tablet and player tablet data so it opens fresh again. This removes the tablet account, profile, mail accounts, contacts, calendar, gallery, paint saves, quick settings, and pending tablet requests.</p>
+              <div class="tablet-auth-actions">
+                <button id="settings-wipe-confirm" class="primary-button danger-button" type="button">Yes, Delete It</button>
+                <button id="settings-wipe-cancel" class="secondary-button" type="button">Cancel</button>
+              </div>
+            </div>
+          </div>
+
+          <section id="calc-screen" class="app-screen hidden">
+            <div class="calc-popout">
+              <div id="calc-drag-handle" class="calc-drag-handle" aria-label="Drag calculator">
+                <span class="calc-drag-pill"></span>
+              </div>
+              <div class="calc-popout__header">
+                <div>
+                  <h3>Calculator</h3>
+                </div>
+                <button id="calc-close" class="icon-button calc-close-button" aria-label="Close calculator">&times;</button>
+              </div>
+
+              <div class="calc-display-card">
+                <div id="calc-expression" class="calc-expression">0</div>
+                <div id="calc-result" class="calc-result">0</div>
+              </div>
+
+              <div id="calc-keypad" class="calc-keypad"></div>
+
+              <div class="calc-history-card">
+                <div class="eyebrow">Recent</div>
+                <div id="calc-history" class="calc-history"></div>
+              </div>
+            </div>
+          </section>
+
+          <div id="toast-stack" class="toast-stack"></div>
+          <button id="close-button" class="home-indicator" aria-label="Close tablet"></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="closed-notification-dock" class="closed-notification-dock hidden">
+    <div class="closed-notification-shell">
+      <div class="closed-notification-tablet">
+        <div class="closed-notification-camera"></div>
+        <div class="closed-notification-screen">
+          <div class="closed-notification-header">
+            <span class="closed-notification-pill">Tablet</span>
+            <span id="closed-notification-time" class="closed-notification-time">now</span>
+          </div>
+          <div class="closed-notification-body">
+            <span id="closed-notification-icon" class="closed-notification-icon">WL</span>
+            <div class="closed-notification-copy">
+              <strong id="closed-notification-title">Tablet</strong>
+              <span id="closed-notification-app">Notification preview</span>
+              <p id="closed-notification-message" class="closed-notification-message">When the tablet is closed, notification previews will appear here.</p>
+              <div id="closed-notification-incoming-actions" class="closed-notification-incoming-actions hidden" aria-hidden="true">
+                <p class="closed-notification-incoming-hint">Press <kbd class="closed-notification-kbd">Left Alt</kbd> to show the mouse, then tap Answer or Decline.</p>
+                <div class="closed-notification-incoming-btns">
+                  <button type="button" id="closed-notification-incoming-decline" class="closed-notification-incoming-btn closed-notification-incoming-btn--decline">Decline</button>
+                  <button type="button" id="closed-notification-incoming-answer" class="closed-notification-incoming-btn closed-notification-incoming-btn--answer">Answer</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="wlabs-game-video-root" aria-hidden="true"></div>
+  <script src="assets/citizenfx-three.min-3c5dd8f1.js"></script>
+  <script src="assets/wlabs-game-video-be1a5276.js"></script>
+  <script src="assets/app-0132ef12.js"></script>
+  <script src="assets/yap-emoji-data-34f00cb6.js"></script>
+  <script src="assets/yap-app-407db9bf.js"></script>
+  <script src="assets/camera-app-cdb585a5.js"></script>
+  <script src="assets/video-call-webrtc-7eb5b591.js"></script>
+  <script src="assets/video-call-app-72df31c2.js"></script>
+</body>
+</html>

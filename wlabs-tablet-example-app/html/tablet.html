@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>WLabs Test App</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <main class="hello-app">
+        <section class="hero-panel">
+            <div class="hero-copy">
+                <p class="eyebrow">WLabs Tablet Example</p>
+                <h1>Hello, welcome to the app template.</h1>
+                <p class="lede">This is a template script, use this structure to create any app your heart desires!</p>
+            </div>
+
+            <form class="hello-card" id="hello-form">
+                <label for="name-input">Your name</label>
+                <div class="input-row">
+                    <input id="name-input" name="name" type="text" placeholder="New developer" autocomplete="off">
+                    <button type="submit">Test</button>
+                </div>
+                <p id="status-text" class="status-text">Press Test to call the Lua NUI callback.</p>
+            </form>
+        </section>
+
+        <section class="info-grid" aria-label="Example structure">
+            <article>
+                <span>1</span>
+                <h2>Register</h2>
+                <p>The client script waits for wlabs-tablet, then calls the RegisterApp export.</p>
+            </article>
+            <article>
+                <span>2</span>
+                <h2>Render</h2>
+                <p>The tablet opens this page inside its app workspace as an external iframe.</p>
+            </article>
+            <article>
+                <span>3</span>
+                <h2>Extend</h2>
+                <p>Now get to coding! With this tablet as your base you can create all kinds of awesome apps!</p>
+            </article>
+        </section>
+    </main>
+
+    <script src="app.js"></script>
+</body>
+</html>

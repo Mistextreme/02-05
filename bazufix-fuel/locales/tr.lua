@@ -1,0 +1,102 @@
+if Config.Locale ~= 'tr' then return end
+
+Config.Locales = Config.Locales or {}
+Config.Locales['tr'] = {
+    -- 3D Metin
+    take_pump           = '[E] Pompayı Al',
+    return_pump         = '[G] Pompayı Bırak',
+    open_menu           = '[E] Menüyü Aç',
+    remove_pump         = '[G] Pompayı Çıkar',
+    attach_pump         = '[E] Araca Tak',
+    buy_station_text    = '[E] İstasyonu Satın Al',
+    manage_station_text = '[E] İstasyonu Yönet',
+
+    -- Bildirimler
+    no_money            = 'Yeterli paranız yok!',
+    refuel_success      = 'Araç başarıyla yakıt aldı.',
+    station_bought      = 'İstasyonu satın aldınız!',
+    station_sold        = 'İstasyonu sattınız.',
+    already_owned       = 'Bu istasyon zaten sahipli.',
+    not_owner           = 'Bu istasyonun sahibi değilsiniz.',
+    price_updated       = 'Yakıt fiyatları güncellendi.',
+    low_fuel            = 'Uyarı: Yakıt seviyesi kritik!',
+    engine_stopped      = 'Motor durdu - yakıt bitti!',
+    stock_added         = 'İstasyona yakıt stoku eklendi.',
+    stock_low           = 'Uyarı: İstasyon yakıt stoğu azalıyor!',
+    stock_empty         = 'İstasyon yakıt stoğu bitti!',
+    cash_withdrawn      = 'İstasyon kasasından para çekildi.',
+    cash_deposited      = 'İstasyon kasasına para yatırıldı.',
+
+    -- İstasyon UI
+    station_name        = 'İstasyon Adı',
+    station_owner       = 'Sahip',
+    station_noowner     = 'Satılık',
+    station_buy         = 'İstasyonu Satın Al',
+    station_sell        = 'İstasyonu Sat',
+    station_manage      = 'İstasyonu Yönet',
+    station_income      = 'Toplam Gelir',
+    station_setprice    = 'Fiyatları Ayarla',
+    station_safe        = 'İstasyon Kasası',
+    station_stock       = 'Yakıt Stoku',
+    station_buy_stock   = 'Yakıt Stoku Al',
+    station_withdraw    = 'Para Çek',
+    station_deposit     = 'Para Yatır',
+    station_safe_balance= 'Kasa Bakiyesi',
+    station_stock_level = 'Stok Seviyesi',
+    liters              = 'litre',
+
+    -- Satın Alma Modalı
+    buy_modal_title     = 'İstasyon Satın Al',
+    buy_modal_desc      = 'Bu istasyonu satın almak istiyor musunuz?',
+    buy_modal_price     = 'İstasyon Fiyatı',
+    buy_modal_confirm   = 'Satın Al',
+    buy_modal_cancel    = 'Vazgeç',
+
+    -- Yakıt UI
+    ui_title            = 'YAKIT TÜRLERİ',
+    ui_amount           = 'DOLUM MİKTARI',
+    ui_cost             = 'TAHMİNİ TUTAR',
+    type_economic       = 'EKONOMİK',
+    type_normal         = 'NORMAL',
+    type_super          = 'SÜPER',
+    type_electric       = 'ELEKTRİKLİ',
+    pay_cash            = 'NAKİT',
+    pay_bank            = 'BANKA',
+    info_plate          = 'PLAKA',
+    info_fuel           = 'YAKIT SEVİYESİ',
+    info_type           = 'YAKIT TÜRÜ',
+    btn_start           = 'YAKIT DOLUMUNA BAŞLA',
+    btn_refueling       = 'YAKIT DOLUYOR...',
+    info_owner          = 'SAHİP',
+    info_price          = 'FİYAT / L',
+    liter               = 'L',
+    ecoDesc             = 'Daha az güç, daha uzun menzil',
+    normalDesc          = 'Standart performans & tüketim',
+    superDesc           = 'Yüksek performanslı araçlar için',
+    elecDesc            = 'Elektrikli araçlar için şarj',
+    confirm_title       = 'Onay Gerekli',
+    confirm_desc        = 'Bu istasyonu satmak istediğinizden emin misiniz? Bu işlem geri alınamaz.',
+    btn_confirm         = 'Onayla',
+    btn_cancel          = 'İptal',
+    placeholder_amount  = 'Miktar ($)',
+    placeholder_liters  = 'Litre miktarı',
+    btn_withdraw        = 'Çek',
+    btn_deposit         = 'Yatır',
+    btn_buy             = 'Satın Al',
+    btn_save_prices     = 'Fiyatları Kaydet',
+    hint_safe           = 'Kasa bakiyesi yakıt alımında otomatik kullanılır.',
+    hint_stock          = 'Mevcut stok: {current} / {max} L. Kasada para varsa önce kasadan düşer.',
+    sell_warning        = 'Bu istasyonu satarsanız, satış bedelinin %70\'ini ve kasa bakiyenizi alırsınız. Bu işlem geri alınamaz.',
+    confirm_title       = 'Onay Gerekli',
+    confirm_desc        = 'Bu istasyonu satmak istediğinizden emin misiniz? Bu işlem geri alınamaz.',
+    btn_confirm         = 'Onayla',
+    btn_cancel          = 'İptal',
+    info_sell_value     = 'Satış değeri: {percent}% geri ödeme',
+    info_start_stock    = 'Başlangıç yakıt stoğu: {amount} L',
+    info_payments       = 'Müşteri ödemeleri kasanıza akar',
+}
+
+function T(key)
+    local lang = Config.Locales[Config.Locale] or Config.Locales['tr']
+    return lang[key] or key
+end

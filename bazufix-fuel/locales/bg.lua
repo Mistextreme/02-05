@@ -1,0 +1,98 @@
+if Config.Locale ~= 'bg' then return end
+
+Config.Locales = Config.Locales or {}
+Config.Locales['bg'] = {
+    -- 3D Text
+    take_pump             = '[E] Вземи помпа',
+    return_pump           = '[G] Върни помпа',
+    open_menu             = '[E] Отвори меню',
+    remove_pump           = '[G] Премахни помпа',
+    attach_pump           = '[E] Прикачи към превозното средство',
+    buy_station_text      = '[E] Купи бензиностанция',
+    manage_station_text   = '[E] Управлявай бензиностанция',
+
+    -- Notifications
+    no_money              = 'Нямаш достатъчно пари!',
+    refuel_success        = 'Превозното средство е заредено успешно.',
+    station_bought        = 'Закупи бензиностанцията!',
+    station_sold          = 'Продаде бензиностанцията.',
+    already_owned         = 'Тази бензиностанция вече има собственик.',
+    not_owner             = 'Не си собственик на тази бензиностанция.',
+    price_updated         = 'Цените на горивата са актуализирани.',
+    low_fuel              = 'Внимание: Нивото на горивото е критично!',
+    engine_stopped        = 'Двигателят изгасна - свърши горивото!',
+    stock_added           = 'Добавено гориво в бензиностанцията.',
+    stock_low             = 'Внимание: Наличността от гориво е ниска!',
+    stock_empty           = 'Бензиностанцията е празна!',
+    cash_withdrawn        = 'Парите са изтеглени от касата.',
+    cash_deposited        = 'Парите са депозирани в касата.',
+
+    -- Station UI
+    station_name          = 'Име на станцията',
+    station_owner         = 'Собственик',
+    station_noowner       = 'За продажба',
+    station_buy           = 'Купи станция',
+    station_sell          = 'Продай станция',
+    station_manage        = 'Управление',
+    station_income        = 'Общ приход',
+    station_setprice      = 'Задай цени',
+    station_safe          = 'Каса на станцията',
+    station_stock         = 'Налично гориво',
+    station_buy_stock     = 'Купи гориво за запаса',
+    station_withdraw      = 'Изтегли пари',
+    station_deposit       = 'Депозирай пари',
+    station_safe_balance  = 'Баланс в касата',
+    station_stock_level   = 'Ниво на запаса',
+    liters                = 'литра',
+
+    -- Buy Modal
+    buy_modal_title       = 'Закупуване на станция',
+    buy_modal_desc        = 'Искате ли да закупите тази бензиностанция?',
+    buy_modal_price       = 'Цена на станцията',
+    buy_modal_confirm     = 'Купи',
+    buy_modal_cancel      = 'Отказ',
+
+    -- Fuel UI
+    ui_title              = 'ВИДОВЕ ГОРИВО',
+    ui_amount             = 'КОЛИЧЕСТВО ЗА ЗАРЕЖДАНЕ',
+    ui_cost               = 'ОЧАКВАНА ЦЕНА',
+    type_economic         = 'ИКОНОМИЧНО',
+    type_normal           = 'НОРМАЛНО',
+    type_super            = 'СУПЕР',
+    type_electric         = 'ЕЛЕКТРИЧЕСКО',
+    pay_cash              = 'В БРОЙ',
+    pay_bank              = 'ПО БАНКА',
+    info_plate            = 'РЕГ. НОМЕР',
+    info_fuel             = 'НИВО НА ГОРИВО',
+    info_type             = 'ВИД ГОРИВО',
+    btn_start             = 'ЗАПОЧНИ ЗАРЕЖДАНЕТО',
+    btn_refueling         = 'ЗАРЕЖДА СЕ...',
+    info_owner            = 'СОБСТВЕНИК',
+    info_price            = 'ЦЕНА / Л',
+    liter                 = 'Л',
+    ecoDesc               = 'По-малко мощност, по-голям пробег',
+    normalDesc            = 'Стандартна мощност и разход',
+    superDesc             = 'За високопроизводителни автомобили',
+    elecDesc              = 'Зареждане на електрически превозни средства',
+    confirm_title         = 'Изисква се потвърждение',
+    confirm_desc          = 'Сигурни ли сте, че искате да продадете тази станция? Действието е необратимо.',
+    btn_confirm           = 'Потвърди',
+    btn_cancel            = 'Отказ',
+    placeholder_amount    = 'Сума ($)',
+    placeholder_liters    = 'Количество в литри',
+    btn_withdraw          = 'Изтегли',
+    btn_deposit           = 'Депозирай',
+    btn_buy               = 'Купи',
+    btn_save_prices       = 'Запази цените',
+    hint_safe             = 'Балансът на касата се използва автоматично за презареждане на запасите.',
+    hint_stock            = 'Текущ запас: {current} / {max} Л. Средствата се вземат от касата, ако са налични.',
+    sell_warning          = 'Ако продадете тази станция, ще получите 70% от покупната цена плюс наличния баланс. Действието е необратимо.',
+    info_sell_value       = 'Стойност при препродажба: {percent}% възвръщаемост',
+    info_start_stock      = 'Начален запас от гориво: {amount} Л',
+    info_payments         = 'Плащанията на клиентите отиват във вашата каса',
+}
+
+function T(key)
+    local lang = Config.Locales[Config.Locale] or Config.Locales['bg']
+    return lang[key] or key
+end

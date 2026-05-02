@@ -1,0 +1,102 @@
+if Config.Locale ~= 'el' then return end
+
+Config.Locales = Config.Locales or {}
+Config.Locales['el'] = {
+    -- 3D Κείμενο (3D Metin)
+    take_pump           = '[E] Take Pump',
+    return_pump         = '[G] Return Pump',
+    open_menu           = '[E] Open Menu',
+    remove_pump         = '[G] Remove Pump',
+    attach_pump         = '[E] Attach to Vehicle',
+    buy_station_text    = '[E] Purchase Station',
+    manage_station_text = '[E] Manage Station',
+
+    -- Ειδοποιήσεις (Bildirimler)
+    no_money            = 'Δεν έχετε αρκετά χρήματα!',
+    refuel_success      = 'Το όχημα ανεφοδιάστηκε με επιτυχία.',
+    station_bought      = 'Αγοράσατε τον σταθμό!',
+    station_sold        = 'Πουλήσατε τον σταθμό.',
+    already_owned       = 'Αυτός ο σταθμός έχει ήδη ιδιοκτήτη.',
+    not_owner           = 'Δεν είστε ο ιδιοκτήτης αυτού του σταθμού.',
+    price_updated       = 'Οι τιμές καυσίμων ενημερώθηκαν.',
+    low_fuel            = 'Προειδοποίηση: Κρίσιμο επίπεδο καυσίμου!',
+    engine_stopped      = 'Ο κινητήρας έσβησε - έλλειψη καυσίμου!',
+    stock_added         = 'Προστέθηκε απόθεμα καυσίμου στον σταθμό.',
+    stock_low           = 'Προειδοποίηση: Το απόθεμα του σταθμού εξαντλείται!',
+    stock_empty         = 'Το απόθεμα του σταθμού εξαντλήθηκε!',
+    cash_withdrawn      = 'Έγινε ανάληψη χρημάτων από το ταμείο του σταθμού.',
+    cash_deposited      = 'Έγινε κατάθεση χρημάτων στο ταμείο του σταθμού.',
+
+    -- UI Σταθμού (İstasyon UI)
+    station_name        = 'Όνομα Σταθμού',
+    station_owner       = 'Ιδιοκτήτης',
+    station_noowner     = 'Προς Πώληση',
+    station_buy         = 'Αγορά Σταθμού',
+    station_sell        = 'Πώληση Σταθμού',
+    station_manage      = 'Διαχείριση Σταθμού',
+    station_income      = 'Συνολικά Έσοδα',
+    station_setprice    = 'Ορισμός Τιμών',
+    station_safe        = 'Ταμείο Σταθμού',
+    station_stock       = 'Απόθεμα Καυσίμου',
+    station_buy_stock   = 'Αγορά Αποθέματος',
+    station_withdraw    = 'Ανάληψη Χρημάτων',
+    station_deposit     = 'Κατάθεση Χρημάτων',
+    station_safe_balance= 'Υπόλοιπο Ταμείου',
+    station_stock_level = 'Επίπεδο Αποθέματος',
+    liters              = 'λίτρα',
+
+    -- Παράθυρο Αγοράς (Satın Alma Modalı)
+    buy_modal_title     = 'Αγορά Πρατηρίου Καυσίμων',
+    buy_modal_desc      = 'Θέλετε να αγοράσετε αυτόν τον σταθμό;',
+    buy_modal_price     = 'Τιμή Σταθμού',
+    buy_modal_confirm   = 'Αγορά',
+    buy_modal_cancel    = 'Άκυρο',
+
+    -- UI Καυσίμων (Yakıt UI)
+    ui_title            = 'ΤΥΠΟΙ ΚΑΥΣΙΜΩΝ',
+    ui_amount           = 'ΠΟΣΟΤΗΤΑ ΠΛΗΡΩΣΗΣ',
+    ui_cost             = 'ΕΚΤΙΜΩΜΕΝΟ ΚΟΣΤΟΣ',
+    type_economic       = 'ΟΙΚΟΝΟΜΙΚΟ',
+    type_normal         = 'ΚΑΝΟΝΙΚΟ',
+    type_super          = 'ΣΟΥΠΕΡ',
+    type_electric       = 'ΗΛΕΚΤΡΙΚΟ',
+    pay_cash            = 'ΜΕΤΡΗΤΑ',
+    pay_bank            = 'ΤΡΑΠΕΖΑ',
+    info_plate          = 'ΠΙΝΑΚΙΔΑ',
+    info_fuel           = 'ΕΠΙΠΕΔΟ ΚΑΥΣΙΜΟΥ',
+    info_type           = 'ΤΥΠΟΣ ΚΑΥΣΙΜΟΥ',
+    btn_start           = 'ΕΝΑΡΞΗ ΑΝΕΦΟΔΙΑΣΜΟΥ',
+    btn_refueling       = 'ΑΝΕΦΟΔΙΑΣΜΟΣ...',
+    info_owner          = 'ΙΔΙΟΚΤΗΤΗΣ',
+    info_price          = 'ΤΙΜΗ / L',
+    liter               = 'L',
+    ecoDesc             = 'Λιγότερη ισχύς, μεγαλύτερη εμβέλεια',
+    normalDesc          = 'Τυπική απόδοση & κατανάλωση',
+    superDesc           = 'Για οχήματα υψηλών επιδόσεων',
+    elecDesc            = 'Φόρτιση για ηλεκτρικά οχήματα',
+    confirm_title       = 'Απαιτείται Επιβεβαίωση',
+    confirm_desc        = 'Είστε σίγουροι ότι θέλετε να πουλήσετε; Αυτή η ενέργεια είναι μη αναστρέψιμη.',
+    btn_confirm         = 'Επιβεβαίωση',
+    btn_cancel          = 'Άκυρο',
+    placeholder_amount  = 'Ποσό ($)',
+    placeholder_liters  = 'Ποσότητα λίτρων',
+    btn_withdraw        = 'Ανάληψη',
+    btn_deposit         = 'Κατάθεση',
+    btn_buy             = 'Αγορά',
+    btn_save_prices     = 'Αποθήκευση Τιμών',
+    hint_safe           = 'Το υπόλοιπο ταμείου χρησιμοποιείται αυτόματα για αγορές αποθέματος.',
+    hint_stock          = 'Τρέχον απόθεμα: {current} / {max} L. Τα χρήματα αφαιρούνται πρώτα από το ταμείο.',
+    sell_warning        = 'Εάν πουλήσετε τον σταθμό, θα λάβετε το 70% της τιμής και το υπόλοιπο ταμείου. Μη αναστρέψιμο.',
+    confirm_title       = 'Απαιτείται Επιβεβαίωση',
+    confirm_desc        = 'Είστε σίγουροι ότι θέλετε να πουλήσετε αυτόν τον σταθμό; Αυτή η ενέργεια είναι μη αναστρέψιμη.',
+    btn_confirm         = 'Επιβεβαίωση',
+    btn_cancel          = 'Άκυρο',
+    info_sell_value     = 'Αξία μεταπώλησης: {percent}% επιστροφή χρημάτων',
+    info_start_stock    = 'Αρχικό απόθεμα καυσίμου: {amount} L',
+    info_payments       = 'Οι πληρωμές πελατών καταλήγουν στο ταμείο σας',
+}
+
+function T(key)
+    local lang = Config.Locales[Config.Locale] or Config.Locales['el']
+    return lang[key] or key
+end

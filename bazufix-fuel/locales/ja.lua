@@ -1,0 +1,102 @@
+if Config.Locale ~= 'ja' then return end
+
+Config.Locales = Config.Locales or {}
+Config.Locales['ja'] = {
+    -- 3Dテキスト (3D Metin)
+    take_pump           = '[E] Take Pump',
+    return_pump         = '[G] Return Pump',
+    open_menu           = '[E] Open Menu',
+    remove_pump         = '[G] Remove Pump',
+    attach_pump         = '[E] Attach to Vehicle',
+    buy_station_text    = '[E] Purchase Station',
+    manage_station_text = '[E] Manage Station',
+
+    -- 通知 (Bildirimler)
+    no_money            = '所持金が足りません！',
+    refuel_success      = '給油が完了しました。',
+    station_bought      = 'ガソリンスタンドを購入しました！',
+    station_sold        = 'ガソリンスタンドを売却しました。',
+    already_owned       = 'このスタンドは既に所有されています。',
+    not_owner           = 'あなたは、このスタンドの所有者ではありません。',
+    price_updated       = '燃料価格が更新されました。',
+    low_fuel            = '警告：燃料残量が少なくなっています！',
+    engine_stopped      = 'エンジン停止 - 燃料切れです！',
+    stock_added         = '燃料在庫が補充されました。',
+    stock_low           = '警告：スタンドの燃料在庫が少なくなっています！',
+    stock_empty         = 'スタンドの燃料在庫がなくなりました！',
+    cash_withdrawn      = 'スタンドの金庫から現金を引き出しました。',
+    cash_deposited      = 'スタンドの金庫に現金を預けました。',
+
+    -- スタンドUI (İstasyon UI)
+    station_name        = 'スタンド名',
+    station_owner       = '所有者',
+    station_noowner     = '販売中',
+    station_buy         = 'スタンドを購入',
+    station_sell        = 'スタンドを売却',
+    station_manage      = 'スタンド管理',
+    station_income      = '総収入',
+    station_setprice    = '価格設定',
+    station_safe        = 'スタンド金庫',
+    station_stock       = '燃料在庫',
+    station_buy_stock   = '在庫を購入',
+    station_withdraw    = '引き出し',
+    station_deposit     = '預け入れ',
+    station_safe_balance= '金庫残高',
+    station_stock_level = '在庫レベル',
+    liters              = 'リットル',
+
+    -- 購入モーダル (Satın Alma Modalı)
+    buy_modal_title     = 'ガソリンスタンドの購入',
+    buy_modal_desc      = 'このスタンドを購入しますか？',
+    buy_modal_price     = '販売価格',
+    buy_modal_confirm   = '購入する',
+    buy_modal_cancel    = 'キャンセル',
+
+    -- 燃料UI (Yakıt UI)
+    ui_title            = '燃料タイプ',
+    ui_amount           = '給油量',
+    ui_cost             = '予想金額',
+    type_economic       = 'エコノミー',
+    type_normal         = 'レギュラー',
+    type_super          = 'ハイオク',
+    type_electric       = '電気',
+    pay_cash            = '現金',
+    pay_bank            = '銀行',
+    info_plate          = 'ナンバープレート',
+    info_fuel           = '現在の燃料',
+    info_type           = '燃料タイプ',
+    btn_start           = '給油を開始する',
+    btn_refueling       = '給油中...',
+    info_owner          = '所有者',
+    info_price          = '価格 / L',
+    liter               = 'L',
+    ecoDesc             = '出力は控えめ、燃費重視',
+    normalDesc          = '標準的な性能と消費量',
+    superDesc           = '高出力車・スポーツカー向け',
+    elecDesc            = '電気自動車用チャージ',
+    confirm_title       = '確認が必要です',
+    confirm_desc        = '本当に売却しますか？この操作は取り消せません。',
+    btn_confirm         = '確認',
+    btn_cancel          = 'キャンセル',
+    placeholder_amount  = '金額 ($)',
+    placeholder_liters  = '量 (リットル)',
+    btn_withdraw        = '引き出す',
+    btn_deposit         = '預ける',
+    btn_buy             = '購入',
+    btn_save_prices     = '価格を保存',
+    hint_safe           = '金庫の残高は在庫購入時に自動で使用されます。',
+    hint_stock          = '現在の在庫: {current} / {max} L。代金は金庫から優先的に引かれます。',
+    sell_warning        = '売却すると、販売価格の70%と金庫の残高を受け取ります。取り消し不可。',
+    confirm_title       = '確認が必要',
+    confirm_desc        = 'このスタンドを売却してもよろしいですか？この操作は取り消せません。',
+    btn_confirm         = '確認',
+    btn_cancel          = 'キャンセル',
+    info_sell_value     = '売却価値： {percent}% 返金',
+    info_start_stock    = '初期燃料在庫： {amount} L',
+    info_payments       = '顧客の支払いは金庫に入ります',
+}
+
+function T(key)
+    local lang = Config.Locales[Config.Locale] or Config.Locales['ja']
+    return lang[key] or key
+end
